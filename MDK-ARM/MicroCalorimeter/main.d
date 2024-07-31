@@ -1,37 +1,32 @@
-microcalorimeter\main.o: ../Core/Src/main.c
-microcalorimeter\main.o: ../Core/Inc/main.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-microcalorimeter\main.o: ../Core/Inc/stm32f1xx_hal_conf.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Include/core_cm3.h
-microcalorimeter\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Include/cmsis_version.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
-microcalorimeter\main.o: ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-microcalorimeter\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h
-microcalorimeter\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h
-microcalorimeter\main.o: ../Core/Inc/gpio.h
-microcalorimeter\main.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\main.o: ..\rt-thread\bsp\rtconfig.h
-microcalorimeter\main.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\main.o: .\RTE\_MicroCalorimeter\RTE_Components.h
-microcalorimeter\main.o: ..\rt-thread\include\rtdebug.h
-microcalorimeter\main.o: ..\rt-thread\include\rtdef.h
-microcalorimeter\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-microcalorimeter\main.o: ..\rt-thread\include\rtservice.h
-microcalorimeter\main.o: ../Core/Inc/cpu_usage.h
+microcalorimeter/main.o: ../Core/Src/main.c ../Core/Inc\main.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal.h \
+  ../Core/Inc\stm32f1xx_hal_conf.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_rcc.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
+  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include\stm32f1xx.h \
+  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h \
+  ../Drivers/CMSIS/Include\core_cm3.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
+  ../Drivers/CMSIS/Include/cmsis_version.h \
+  ../Drivers/CMSIS/Include/cmsis_compiler.h \
+  ../Drivers/CMSIS/Include/cmsis_armclang.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_acle.h \
+  ../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stddef.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_gpio.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_exti.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_dma.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_cortex.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_flash.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_pwr.h \
+  ../Core/Inc\gpio.h ../rt-thread/include\rtthread.h \
+  ../rt-thread/bsp\rtconfig.h ../rt-thread/include\rtdebug.h \
+  ../rt-thread/include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ../rt-thread/include\rtservice.h ../Core/Inc\cpu_usage.h

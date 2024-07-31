@@ -96,8 +96,11 @@ int main(void)
 
   /* USER CODE END 2 */
 
+  /* Infinite loop */
+  /* USER CODE BEGIN WHILE */
+    /* USER CODE END WHILE */
 
-  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 	led1_thread =                          /* 线程控制块指针 */
     rt_thread_create( "led1",              /* 线程名字 */
                       led1_thread_entry,   /* 线程入口函数 */
@@ -130,13 +133,10 @@ static void led1_thread_entry(void* parameter)
 	while (1)
 	{
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-		HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-		rt_thread_delay(500);   /* 延时500个tick */
+		rt_thread_delay(10);   /* 延时500个tick */
 	
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);    
-		HAL_GPIO_TogglePin(LED2_GPIO_Port,LED2_Pin);
-		rt_thread_delay(500);   /* 延时500个tick */		 		
-	
+		rt_thread_delay(1000);   /* 延时500个tick */		 		
 	}
 }
 
@@ -147,19 +147,15 @@ static void cpu_usage_thread_entry(void *parameter)
     
     while(1)
     {
-        // 获取 CPU 利用率
-        cpu_usage_get(&major, &minor);
+			// 获取 CPU 利用率
+			cpu_usage_get(&major, &minor);
         
-        rt_kprintf("CPU 利用率：%d.%d %\r\n", major, minor);
-        rt_thread_delay(500);  // 500个tick（500ms）
+			rt_kprintf("CPU usage: %d.%d %\r\n", major, minor);
+			rt_thread_delay(500);  // 500个tick（500ms）
     }
 }
 
   /* USER CODE END 3 */
-
-
-
-
 /**
   * @brief System Clock Configuration
   * @retval None

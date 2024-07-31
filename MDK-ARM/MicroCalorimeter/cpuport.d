@@ -1,9 +1,5 @@
-microcalorimeter\cpuport.o: ..\rt-thread\libcpu\arm\cortex-m3\cpuport.c
-microcalorimeter\cpuport.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\cpuport.o: ..\rt-thread\bsp\rtconfig.h
-microcalorimeter\cpuport.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\cpuport.o: .\RTE\_MicroCalorimeter\RTE_Components.h
-microcalorimeter\cpuport.o: ..\rt-thread\include\rtdebug.h
-microcalorimeter\cpuport.o: ..\rt-thread\include\rtdef.h
-microcalorimeter\cpuport.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-microcalorimeter\cpuport.o: ..\rt-thread\include\rtservice.h
+microcalorimeter/cpuport.o: ../rt-thread/libcpu/arm/cortex-m3/cpuport.c \
+  ../rt-thread/include\rtthread.h ../rt-thread/bsp\rtconfig.h \
+  ../rt-thread/include\rtdebug.h ../rt-thread/include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ../rt-thread/include\rtservice.h

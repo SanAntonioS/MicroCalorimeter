@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M3 -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include
+-I.\RTE\_MicroCalorimeter
+-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include
+-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE
+-o microcalorimeter\stm32f1xx_it.o --omf_browse microcalorimeter\stm32f1xx_it.crf --depend microcalorimeter\stm32f1xx_it.d --feedback "MicroCalorimeter\MicroCalorimeter.fed" "../Core/Src/stm32f1xx_it.c"

@@ -1,10 +1,5 @@
-microcalorimeter\cpu_usage.o: ..\Core\Src\cpu_usage.c
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\bsp\rtconfig.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\cpu_usage.o: .\RTE\_MicroCalorimeter\RTE_Components.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rtdebug.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rtdef.h
-microcalorimeter\cpu_usage.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rtservice.h
-microcalorimeter\cpu_usage.o: ..\rt-thread\include\rthw.h
+microcalorimeter/cpu_usage.o: ../Core/Src/cpu_usage.c \
+  ../rt-thread/include\rtthread.h ../rt-thread/bsp\rtconfig.h \
+  ../rt-thread/include\rtdebug.h ../rt-thread/include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ../rt-thread/include\rtservice.h ../rt-thread/include\rthw.h

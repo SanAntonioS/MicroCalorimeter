@@ -1,10 +1,6 @@
-microcalorimeter\slab.o: ..\rt-thread\src\slab.c
-microcalorimeter\slab.o: ..\rt-thread\include\rthw.h
-microcalorimeter\slab.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\slab.o: ..\rt-thread\bsp\rtconfig.h
-microcalorimeter\slab.o: ..\rt-thread\include\rtthread.h
-microcalorimeter\slab.o: .\RTE\_MicroCalorimeter\RTE_Components.h
-microcalorimeter\slab.o: ..\rt-thread\include\rtdebug.h
-microcalorimeter\slab.o: ..\rt-thread\include\rtdef.h
-microcalorimeter\slab.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
-microcalorimeter\slab.o: ..\rt-thread\include\rtservice.h
+microcalorimeter/slab.o: ../rt-thread/src/slab.c \
+  ../rt-thread/include\rthw.h ../rt-thread/include\rtthread.h \
+  ../rt-thread/bsp\rtconfig.h ../rt-thread/include\rtdebug.h \
+  ../rt-thread/include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ../rt-thread/include\rtservice.h
