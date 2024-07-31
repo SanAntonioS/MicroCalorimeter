@@ -1,0 +1,10 @@
+microcalorimeter\scheduler.o: ..\rt-thread\src\scheduler.c
+microcalorimeter\scheduler.o: ..\rt-thread\include\rtthread.h
+microcalorimeter\scheduler.o: ..\rt-thread\bsp\rtconfig.h
+microcalorimeter\scheduler.o: ..\rt-thread\include\rtthread.h
+microcalorimeter\scheduler.o: .\RTE\_MicroCalorimeter\RTE_Components.h
+microcalorimeter\scheduler.o: ..\rt-thread\include\rtdebug.h
+microcalorimeter\scheduler.o: ..\rt-thread\include\rtdef.h
+microcalorimeter\scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+microcalorimeter\scheduler.o: ..\rt-thread\include\rtservice.h
+microcalorimeter\scheduler.o: ..\rt-thread\include\rthw.h

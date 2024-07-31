@@ -1,0 +1,10 @@
+microcalorimeter\components.o: ..\rt-thread\src\components.c
+microcalorimeter\components.o: ..\rt-thread\include\rthw.h
+microcalorimeter\components.o: ..\rt-thread\include\rtthread.h
+microcalorimeter\components.o: ..\rt-thread\bsp\rtconfig.h
+microcalorimeter\components.o: ..\rt-thread\include\rtthread.h
+microcalorimeter\components.o: .\RTE\_MicroCalorimeter\RTE_Components.h
+microcalorimeter\components.o: ..\rt-thread\include\rtdebug.h
+microcalorimeter\components.o: ..\rt-thread\include\rtdef.h
+microcalorimeter\components.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+microcalorimeter\components.o: ..\rt-thread\include\rtservice.h
