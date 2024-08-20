@@ -18,12 +18,13 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "iwdg.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "rtthread.h"
-#include "cpu_usage.h"
+#include "sys.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,10 +56,14 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-static rt_thread_t led1_thread = RT_NULL;
-static rt_thread_t cpu_usage_thread = RT_NULL;
 static void led1_thread_entry(void* parameter);
 static void cpu_usage_thread_entry(void *parameter);
+
+static rt_sem_t sem;
+
+rt_sem_t get_semaphore(void) {
+    return sem;
+}
 /* USER CODE END 0 */
 
 /**
@@ -78,8 +83,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-	
-	cpu_usage_init();
 
   /* USER CODE END Init */
 
@@ -92,40 +95,81 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_IWDG_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-
+	rt_show_version();
+	cpu_usage_init();
+	HAL_NVIC_DisableIRQ(EXTI4_IRQn);
+	InitAD7177(&device1,0);						//AD7177初始化
+	InitAD7177(&device2,0);						//AD7177初始化
+	InitAD7177(&device3,0);						//AD7177初始化
+	InitAD7177(&device4,0);						//AD7177初始化
+	InitAD7177(&device5,0);						//AD7177初始化
+	InitAD7177(&device6,0);						//AD7177初始化
+	InitAD7177(&device7,0);						//AD7177初始化
+	InitAD7177(&device8,0);						//AD7177初始化
+	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-    /* USER CODE END WHILE */
+	/* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-	led1_thread =                          /* 线程控制块指针 */
-    rt_thread_create( "led1",              /* 线程名字 */
-                      led1_thread_entry,   /* 线程入口函数 */
-                      RT_NULL,             /* 线程入口函数参数 */
-                      512,                 /* 线程栈大小 */
-                      3,                   /* 线程的优先级 */
-                      20);                 /* 线程时间片 */
+	/* USER CODE BEGIN 3 */
+	sem = rt_sem_create("my_semaphore", 1, RT_IPC_FLAG_FIFO);
+	
+	rt_thread_t led1_thread =
+	rt_thread_create( "led1",
+										led1_thread_entry,
+										RT_NULL,
+										512,
+										5,
+										20);
                    
    if (led1_thread != RT_NULL)
         rt_thread_startup(led1_thread);
     else
         return -1;
 		
-    cpu_usage_thread =                             // 线程控制块指针
-    rt_thread_create("cpu_usage_thread",           // 线程名字
-                    cpu_usage_thread_entry,        // 线程入口函数
-                    RT_NULL,                       // 入口函数参数
-                    255,                           // 线程栈大小
-                    5,                             // 线程优先级
-                    20);                           // 线程时间片
-    
-    if(cpu_usage_thread != RT_NULL)
-        rt_thread_startup(cpu_usage_thread);
-    else
-        return -1; 
+	rt_thread_t cpu_usage_thread =
+	rt_thread_create("cpu_usage_thread",
+									cpu_usage_thread_entry,
+									RT_NULL,
+									255,
+									4,
+									20);
+
+	if(cpu_usage_thread != RT_NULL)
+			rt_thread_startup(cpu_usage_thread);
+	else
+			return -1; 
+		
+	rt_thread_t watchdog_thread =
+	rt_thread_create("watchdog",
+										watchdog_thread_entry,
+										RT_NULL,
+										255,
+										6,
+										20);
+
+	if(watchdog_thread != RT_NULL)
+			rt_thread_startup(watchdog_thread);
+	else
+			return -1; 
+	
+	rt_thread_t data_conversion_thread =
+	rt_thread_create("data_conversion",
+										data_conversion_thread_entry,
+										RT_NULL,
+										255,
+										3,
+										20);
+
+	if(data_conversion_thread != RT_NULL)
+			rt_thread_startup(data_conversion_thread);
+	else
+			return -1; 
 }
 
 static void led1_thread_entry(void* parameter)
@@ -133,10 +177,12 @@ static void led1_thread_entry(void* parameter)
 	while (1)
 	{
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);
-		rt_thread_delay(10);   /* 延时500个tick */
+		rt_thread_delay(40);   /* 延时500个tick */
 	
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);    
-		rt_thread_delay(1000);   /* 延时500个tick */		 		
+		rt_thread_delay(960);   /* 延时500个tick */		
+		
+		rt_kprintf("Tick\r\n");
 	}
 }
 
@@ -151,11 +197,13 @@ static void cpu_usage_thread_entry(void *parameter)
 			cpu_usage_get(&major, &minor);
         
 			rt_kprintf("CPU usage: %d.%d %\r\n", major, minor);
-			rt_thread_delay(500);  // 500个tick（500ms）
+			rt_thread_delay(10000);  // 500个tick（500ms）
     }
-}
+
 
   /* USER CODE END 3 */
+}
+
 /**
   * @brief System Clock Configuration
   * @retval None
@@ -168,10 +216,11 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;

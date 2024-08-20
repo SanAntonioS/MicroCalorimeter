@@ -12,6 +12,9 @@
 #include <stdint.h>
 #include <rthw.h>
 #include <rtthread.h>
+#include "sys.h"
+
+extern UART_HandleTypeDef huart3;
 
 #define _SCB_BASE       (0xE000E010UL)
 #define _SYSTICK_CTRL   (*(rt_uint32_t *)(_SCB_BASE + 0x0))
@@ -28,6 +31,36 @@ extern void SystemCoreClockUpdate(void);
 // frequency supplied to the SysTick timer and the processor 
 // core clock.
 extern uint32_t SystemCoreClock;
+
+
+void rt_hw_us_delay(rt_uint32_t us)
+{
+    rt_uint32_t start, now, delta, reload, us_tick;
+    start = SysTick->VAL;
+    reload = SysTick->LOAD;
+    us_tick = SystemCoreClock / 1000000UL;
+    do {
+        now = SysTick->VAL;
+        delta = start > now ? start - now : reload + start - now;
+    } while(delta < us_tick * us);
+}
+
+void rt_hw_console_output(const char *str)
+{
+    while (*str)
+    {
+        if (*str == '\n')
+        {
+            // 如果是换行符 '\n'，则先发送回车符 '\r'
+            uint8_t ch = '\r';
+            HAL_UART_Transmit(&huart3, &ch, 1, HAL_MAX_DELAY);
+        }
+        
+        // 发送当前字符
+        uint8_t ch = *str++;
+        HAL_UART_Transmit(&huart3, &ch, 1, HAL_MAX_DELAY);
+    }
+}
 
 static uint32_t _SysTick_Config(rt_uint32_t ticks)
 {

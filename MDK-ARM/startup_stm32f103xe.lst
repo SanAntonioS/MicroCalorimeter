@@ -542,12 +542,13 @@ ARM Macro Assembler    Page 9
   353 0000001C                 END
               00000000 
               00000000 
-Command Line: --debug --xref --cpu=Cortex-M3 --depend=microcalorimeter\startup_
-stm32f103xe.d -omicrocalorimeter\startup_stm32f103xe.o -I.\RTE\_MicroCalorimete
-r -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include -IC:\Keil_v5\ARM\PAC
-K\Keil\STM32F1xx_DFP\2.2.0\Device\Include --predefine="__MICROLIB SETA 1" --pre
-define="__UVISION_VERSION SETA 526" --predefine="_RTE_ SETA 1" --predefine="STM
-32F10X_HD SETA 1" --list=startup_stm32f103xe.lst startup_stm32f103xe.s
+Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M3 --depend=micr
+ocalorimeter\startup_stm32f103xe.d -omicrocalorimeter\startup_stm32f103xe.o -I.
+\RTE\_MicroCalorimeter -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
+ -IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include --predefine="__M
+ICROLIB SETA 1" --predefine="__UVISION_VERSION SETA 526" --predefine="_RTE_ SET
+A 1" --predefine="STM32F10X_HD SETA 1" --list=startup_stm32f103xe.lst startup_s
+tm32f103xe.s
 
 
 
