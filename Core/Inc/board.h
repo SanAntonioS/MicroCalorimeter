@@ -1,11 +1,8 @@
-#ifndef __BOARD_H__
-#define __BOARD_H__
- 
-/* STM32 固件库头文件 */
-#include "stm32f10x.h"
- 
-/* RT-Thread相关头文件 */
-#include <rthw.h>
-#include <rtthread.h>
- 
-#endif /* __BOARD_H__ */
+#ifndef  __BOARD_H__
+#define  __BOARD_H__
+
+#include "sys.h"
+
+void rt_hw_us_delay(rt_uint32_t us);
+
+#endif

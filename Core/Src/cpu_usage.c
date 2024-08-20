@@ -1,5 +1,4 @@
-#include <rtthread.h>
-#include <rthw.h>
+#include "cpu_usage.h"
  
 #define CPU_USAGE_CALC_TICK    10
 #define CPU_USAGE_LOOP        100
@@ -67,4 +66,18 @@ void cpu_usage_init()
 {
     /* set idle thread hook */
     rt_thread_idle_sethook(cpu_usage_idle_hook);
+}
+
+void cpu_usage_thread_entry(void *parameter)
+{
+  rt_uint8_t major, minor;
+    
+	while(1)
+	{
+		// 获取 CPU 利用率
+		cpu_usage_get(&major, &minor);
+		
+		rt_kprintf("CPU usage: %d.%d% \r\n", major, minor);
+		rt_thread_delay(1000);
+	}
 }

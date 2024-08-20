@@ -9,9 +9,12 @@
  * 2018-11-12     Ernest Chen  modify copyright
  */
  
+#include "board.h"
 #include <stdint.h>
 #include <rthw.h>
 #include <rtthread.h>
+#include "main.h"
+#include "usart.h"
 
 #define _SCB_BASE       (0xE000E010UL)
 #define _SYSTICK_CTRL   (*(rt_uint32_t *)(_SCB_BASE + 0x0))
@@ -28,6 +31,19 @@ extern void SystemCoreClockUpdate(void);
 // frequency supplied to the SysTick timer and the processor 
 // core clock.
 extern uint32_t SystemCoreClock;
+
+void rt_hw_us_delay(rt_uint32_t us)
+{
+    rt_uint32_t start, now, delta, reload, us_tick;
+    start = SysTick->VAL;
+    reload = SysTick->LOAD;
+    us_tick = SystemCoreClock / 1000000UL;
+    do {
+        now = SysTick->VAL;
+        delta = start > now ? start - now : reload + start - now;
+    } while(delta < us_tick * us);
+}
+
 
 static uint32_t _SysTick_Config(rt_uint32_t ticks)
 {
@@ -88,4 +104,21 @@ void SysTick_Handler(void)
 
     /* leave interrupt */
     rt_interrupt_leave();
+}
+
+void rt_hw_console_output(const char *str)
+{
+    /* empty console output */
+	
+    /* 进入临界段 */
+    rt_enter_critical();
+ 
+    /* 直到字符串结束 */
+    while ( *str != '\0' )
+    {
+			HAL_UART_Transmit(&huart3, (uint8_t *)(str++), 1, 1000);
+    }
+ 
+    /* 退出临界段 */
+		rt_exit_critical();
 }

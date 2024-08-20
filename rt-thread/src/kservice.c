@@ -22,6 +22,7 @@
 #include <rtthread.h>
 #include <rthw.h>
 
+
 /* use precision */
 #define RT_PRINTF_PRECISION
 
@@ -519,11 +520,11 @@ char *strdup(const char *s) __attribute__((alias("rt_strdup")));
  */
 void rt_show_version(void)
 {
-    rt_kprintf("\n \\ | /\n");
-    rt_kprintf("- RT -     Thread Operating System\n");
-    rt_kprintf(" / | \\     %d.%d.%d build %s\n",
+    rt_kprintf("\n \\ | /\r\n");
+    rt_kprintf("- RT -     Thread Operating System\r\n");
+    rt_kprintf(" / | \\     %d.%d.%d build %s\r\n",
                RT_VERSION, RT_SUBVERSION, RT_REVISION, __DATE__);
-    rt_kprintf(" 2006 - 2020 Copyright by rt-thread team\n");
+    rt_kprintf(" 2006 - 2020 Copyright by rt-thread team\r\n");
 }
 
 /* private function */
