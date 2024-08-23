@@ -1,5 +1,5 @@
-microcalorimeter/initad7177.o: ../Core/Src/InitAD7177.c \
-  ../Core/Inc\InitAD7177.h ../Core/Inc/sys.h \
+microcalorimeter/dataprocess.o: ../Core/Src/DataProcess.c \
+  ../Core/Inc\DataProcess.h ../Core/Inc/sys.h \
   ../rt-thread/include\rtthread.h ../rt-thread/bsp\rtconfig.h \
   ../rt-thread/include\rtdebug.h ../rt-thread/include\rtdef.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \

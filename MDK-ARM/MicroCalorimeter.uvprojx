@@ -423,6 +423,26 @@
               <FilePath>..\Core\Src\eeprom.c</FilePath>
             </File>
             <File>
+              <FileName>AD717X.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\AD717X.c</FilePath>
+            </File>
+            <File>
+              <FileName>InitAD7177.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\InitAD7177.c</FilePath>
+            </File>
+            <File>
+              <FileName>IOSPI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\IOSPI.c</FilePath>
+            </File>
+            <File>
+              <FileName>DataConversion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\DataConversion.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
@@ -555,24 +575,9 @@
               <FilePath>../Core/Src/stm32f1xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>AD717X.c</FileName>
+              <FileName>DataProcess.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Core\Src\AD717X.c</FilePath>
-            </File>
-            <File>
-              <FileName>InitAD7177.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\InitAD7177.c</FilePath>
-            </File>
-            <File>
-              <FileName>IOSPI.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\IOSPI.c</FilePath>
-            </File>
-            <File>
-              <FileName>DataConversion.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\DataConversion.c</FilePath>
+              <FilePath>..\Core\Src\DataProcess.c</FilePath>
             </File>
           </Files>
         </Group>

@@ -60,9 +60,14 @@ static void led1_thread_entry(void* parameter);
 static void cpu_usage_thread_entry(void *parameter);
 
 static rt_sem_t sem;
+static rt_sem_t data_process_sem;
 
 rt_sem_t get_semaphore(void) {
     return sem;
+}
+
+rt_sem_t get_data_process_sem(void) {
+    return data_process_sem;
 }
 /* USER CODE END 0 */
 
@@ -110,14 +115,18 @@ int main(void)
 	InitAD7177(&device7,0);						//AD7177初始化
 	InitAD7177(&device8,0);						//AD7177初始化
 	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
+	
+	IOUT_P;
+	Choose_R1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	/* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-	/* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 	sem = rt_sem_create("my_semaphore", 1, RT_IPC_FLAG_FIFO);
+	data_process_sem = rt_sem_create("data_process_sem", 1, RT_IPC_FLAG_FIFO);
 	
 	rt_thread_t led1_thread =
 	rt_thread_create( "led1",
@@ -132,18 +141,18 @@ int main(void)
     else
         return -1;
 		
-	rt_thread_t cpu_usage_thread =
-	rt_thread_create("cpu_usage_thread",
-									cpu_usage_thread_entry,
-									RT_NULL,
-									255,
-									4,
-									20);
+//	rt_thread_t cpu_usage_thread =
+//	rt_thread_create("cpu_usage_thread",
+//									cpu_usage_thread_entry,
+//									RT_NULL,
+//									255,
+//									4,
+//									20);
 
-	if(cpu_usage_thread != RT_NULL)
-			rt_thread_startup(cpu_usage_thread);
-	else
-			return -1; 
+//	if(cpu_usage_thread != RT_NULL)
+//			rt_thread_startup(cpu_usage_thread);
+//	else
+//			return -1; 
 		
 	rt_thread_t watchdog_thread =
 	rt_thread_create("watchdog",
@@ -170,6 +179,19 @@ int main(void)
 			rt_thread_startup(data_conversion_thread);
 	else
 			return -1; 
+	
+	rt_thread_t data_process_thread =
+	rt_thread_create("data_process",
+										data_process_thread_entry,
+										RT_NULL,
+										255,
+										4,
+										20);
+
+	if(data_process_thread != RT_NULL)
+			rt_thread_startup(data_process_thread);
+	else
+			return -1; 
 }
 
 static void led1_thread_entry(void* parameter)
@@ -181,8 +203,6 @@ static void led1_thread_entry(void* parameter)
 	
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);    
 		rt_thread_delay(960);   /* 延时500个tick */		
-		
-		rt_kprintf("Tick\r\n");
 	}
 }
 

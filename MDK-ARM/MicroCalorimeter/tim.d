@@ -1,10 +1,5 @@
-microcalorimeter/initad7177.o: ../Core/Src/InitAD7177.c \
-  ../Core/Inc\InitAD7177.h ../Core/Inc/sys.h \
-  ../rt-thread/include\rtthread.h ../rt-thread/bsp\rtconfig.h \
-  ../rt-thread/include\rtdebug.h ../rt-thread/include\rtdef.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
-  ../rt-thread/include\rtservice.h ../Core/Inc/gpio.h ../Core/Inc/main.h \
-  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal.h \
+microcalorimeter/tim.o: ../Core/Src/tim.c ../Core/Inc\tim.h \
+  ../Core/Inc/main.h ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal.h \
   ../Core/Inc\stm32f1xx_hal_conf.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_rcc.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h \
@@ -31,12 +26,19 @@ microcalorimeter/initad7177.o: ../Core/Src/InitAD7177.c \
   ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_iwdg.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_pwr.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_tim.h \
+  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_uart.h \
+  ../Core/Inc\sys.h ../rt-thread/include\rtthread.h \
+  ../rt-thread/bsp\rtconfig.h ../rt-thread/include\rtdebug.h \
+  ../rt-thread/include\rtdef.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
+  ../rt-thread/include\rtservice.h ../Core/Inc/gpio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h ../Core/Inc/I2C.h \
   ../Core/Inc/cpu_usage.h ../Core/Inc/eeprom.h ../Core/Inc/AD717x.h \
-  ../Core/Inc/InitAD7177.h ../Core/Inc/IOSPI.h \
-  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h
+  ../Core/Inc/InitAD7177.h ../Core/Inc/sys.h ../Core/Inc/IOSPI.h \
+  ../Core/Inc/DataConversion.h

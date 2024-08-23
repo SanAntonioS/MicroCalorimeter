@@ -39,4 +39,4 @@ microcalorimeter/iospi.o: ../Core/Src/IOSPI.c ../Core/Inc\IOSPI.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h ../Core/Inc/I2C.h \
   ../Core/Inc/cpu_usage.h ../Core/Inc/eeprom.h ../Core/Inc/AD717x.h \
   ../Core/Inc/InitAD7177.h ../Core/Inc/IOSPI.h \
-  ../Core/Inc/DataConversion.h
+  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h
