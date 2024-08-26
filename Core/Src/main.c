@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma.h"
 #include "iwdg.h"
 #include "usart.h"
 #include "gpio.h"
@@ -61,6 +62,7 @@ static void cpu_usage_thread_entry(void *parameter);
 
 static rt_sem_t sem;
 static rt_sem_t data_process_sem;
+static rt_sem_t uart3_sem;
 
 rt_sem_t get_semaphore(void) {
     return sem;
@@ -68,6 +70,10 @@ rt_sem_t get_semaphore(void) {
 
 rt_sem_t get_data_process_sem(void) {
     return data_process_sem;
+}
+
+rt_sem_t get_uart3_sem(void) {
+    return uart3_sem;
 }
 /* USER CODE END 0 */
 
@@ -100,10 +106,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_IWDG_Init();
   MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
-	rt_show_version();
+//	rt_show_version();
 	cpu_usage_init();
 	HAL_NVIC_DisableIRQ(EXTI4_IRQn);
 	InitAD7177(&device1,0);						//AD7177初始化
@@ -116,6 +123,10 @@ int main(void)
 	InitAD7177(&device8,0);						//AD7177初始化
 	HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 	
+	HAL_UART_DMAStop(&huart3);
+	__HAL_UART_ENABLE_IT(&huart3, UART_IT_RXNE);
+	__HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);
+	
 	IOUT_P;
 	Choose_R1;
   /* USER CODE END 2 */
@@ -127,6 +138,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 	sem = rt_sem_create("my_semaphore", 1, RT_IPC_FLAG_FIFO);
 	data_process_sem = rt_sem_create("data_process_sem", 1, RT_IPC_FLAG_FIFO);
+	uart3_sem = rt_sem_create("uart3_sem", 1, RT_IPC_FLAG_FIFO);
 	
 	rt_thread_t led1_thread =
 	rt_thread_create( "led1",
@@ -190,6 +202,19 @@ int main(void)
 
 	if(data_process_thread != RT_NULL)
 			rt_thread_startup(data_process_thread);
+	else
+			return -1; 
+	
+	rt_thread_t data_send_thread =
+	rt_thread_create("data_send",
+										data_send_thread_entry,
+										RT_NULL,
+										255,
+										7,
+										20);
+
+	if(data_send_thread != RT_NULL)
+			rt_thread_startup(data_send_thread);
 	else
 			return -1; 
 }

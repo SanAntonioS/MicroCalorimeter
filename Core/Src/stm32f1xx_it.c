@@ -22,6 +22,10 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "sys.h"
+
+extern uart3_t uart3;
+extern rt_sem_t get_uart3_sem(void);
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,6 +59,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern DMA_HandleTypeDef hdma_usart3_rx;
 extern UART_HandleTypeDef huart3;
 /* USER CODE BEGIN EV */
 
@@ -213,16 +218,43 @@ void EXTI4_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles DMA1 channel3 global interrupt.
+  */
+void DMA1_Channel3_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Channel3_IRQn 0 */
+
+  /* USER CODE END DMA1_Channel3_IRQn 0 */
+  HAL_DMA_IRQHandler(&hdma_usart3_rx);
+  /* USER CODE BEGIN DMA1_Channel3_IRQn 1 */
+
+  /* USER CODE END DMA1_Channel3_IRQn 1 */
+}
+
+/**
   * @brief This function handles USART3 global interrupt.
   */
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
-
+	
   /* USER CODE END USART3_IRQn 0 */
   HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-
+	// 检查 USART3 是否产生接收中断
+	if(__HAL_UART_GET_FLAG(&huart3,UART_FLAG_IDLE))
+	{
+		__HAL_UART_CLEAR_FLAG(&huart3,UART_FLAG_IDLE);
+		HAL_UART_DMAStop(&huart3);
+		
+		uint16_t len_temp = __HAL_DMA_GET_COUNTER(&hdma_usart3_rx);
+		uart3.len = 256 - len_temp;
+		uart3.rx_flag = 1;
+		rt_sem_t  uart3_sem = get_uart3_sem();
+		rt_sem_release(uart3_sem);
+	}
+	__HAL_UART_ENABLE_IT(&huart3, UART_IT_RXNE);
+	HAL_UART_Receive_DMA(&huart3, uart3.rx_data, 256);
   /* USER CODE END USART3_IRQn 1 */
 }
 

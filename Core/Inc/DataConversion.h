@@ -6,5 +6,6 @@
 void data_conversion_thread_entry(void *parameter);
 void Change_Relay_State(void);
 float RegValue_To_Voltage(uint32_t RegValue);
+void Get_Resistance_8_Channel(void);
 
 #endif

@@ -32,11 +32,12 @@ microcalorimeter/gpio.o: ../Core/Src/gpio.c ../Core/Inc\gpio.h \
   ../rt-thread/include\rtdef.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   ../rt-thread/include\rtservice.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ../Core/Inc/usart.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h ../Core/Inc/I2C.h \
   ../Core/Inc/cpu_usage.h ../Core/Inc/eeprom.h ../Core/Inc/AD717x.h \
   ../Core/Inc/InitAD7177.h ../Core/Inc/sys.h ../Core/Inc/IOSPI.h \
-  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h
+  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h \
+  ../Core/Inc/CRC16.h ../Core/Inc/ModbusRtu.h

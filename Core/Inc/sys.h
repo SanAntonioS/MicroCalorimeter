@@ -6,6 +6,7 @@
 #include "rtthread.h"
 #include "gpio.h"
 #include "math.h"
+#include "usart.h"
 #include "stdbool.h"
 #include <stdio.h>
 #include <string.h>
@@ -19,6 +20,8 @@
 #include "IOSPI.h"
 #include "DataConversion.h"
 #include "DataProcess.h"
+#include "CRC16.h"
+#include "ModbusRtu.h"
 
 //电流正向，继电器向上打
 #define	IOUT_P	HAL_GPIO_WritePin(Relay6_L_GPIO_Port, Relay6_L_Pin, GPIO_PIN_SET);\

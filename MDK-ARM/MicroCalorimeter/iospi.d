@@ -32,11 +32,12 @@ microcalorimeter/iospi.o: ../Core/Src/IOSPI.c ../Core/Inc\IOSPI.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_iwdg.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_pwr.h \
   ../Drivers/STM32F1xx_HAL_Driver/Inc\stm32f1xx_hal_uart.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\math.h ../Core/Inc/usart.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdbool.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdio.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\string.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h ../Core/Inc/I2C.h \
   ../Core/Inc/cpu_usage.h ../Core/Inc/eeprom.h ../Core/Inc/AD717x.h \
   ../Core/Inc/InitAD7177.h ../Core/Inc/IOSPI.h \
-  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h
+  ../Core/Inc/DataConversion.h ../Core/Inc/DataProcess.h \
+  ../Core/Inc/CRC16.h ../Core/Inc/ModbusRtu.h
