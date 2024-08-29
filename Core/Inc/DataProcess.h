@@ -10,13 +10,12 @@ typedef struct Data
 	float R3;
 	float R4;
 	float Voltage;
-	uint8_t sensor;
-	float T_PT100;
-	float T_PT100_Fliter;
-	float R_PT100;
-	float T2_PT100;
-	float T2_PT100_Fliter;
-	float R2_PT100;
+	float averageR1;
+	float averageR2;
+	float averageR3;
+	float averageR4;
+	float averageVoltage;
+	float Voltage_Target;
 	float Power;
 	float T_Target;
 	float T_OpenPID_Target;
@@ -24,6 +23,22 @@ typedef struct Data
 	float Ki;
 	float Kd;
 	float Max_Power;
+	
+	float Baseline1_R1;
+	float Baseline1_R2;
+	float Baseline1_R3;
+	float Baseline1_R4;
+	float Baseline1_V;
+	float Baseline2_R1;
+	float Baseline2_R2;
+	float Baseline2_R3;
+	float Baseline2_R4;
+	float Baseline2_V;
+	float Baseline3_R1;
+	float Baseline3_R2;
+	float Baseline3_R3;
+	float Baseline3_R4;
+	float Baseline3_V;
 	
 	double NTC_A;
 	double NTC_B;
@@ -40,69 +55,46 @@ typedef struct Data
 	
 	float Max_Temperature;
 	float Min_Temperature;
-	
-	float Debug_Output;
 }Data_t;
 
 typedef struct Flag
 {
-	bool Timer_1Hz;
-	bool Send_Timer_1S;
-	bool Send_Timer_8S;
-	
 	bool Start_Control;
 	bool Start_AT;
-	bool COM;
-	//声明全局变量，作为数据寄存器 读取完成标志，即置位时方可进行数据转换--------
-	bool AD1_Ch01_Pt100_P_Get;
-	bool AD1_Ch01_REF_P_Get;
-	bool AD1_Ch01_REF_N_Get;
-	bool AD1_Ch01_Pt100_N_Get;
-	bool AD1_Ch12_Pt100_P_Get;
-	bool AD1_Ch12_REF_P_Get;
-	bool AD1_Ch12_REF_N_Get;
-	bool AD1_Ch12_Pt100_N_Get;
 	
-	bool AD2_Ch01_REF_P_Get;
-	bool AD2_Ch01_Pt100_P_Get;
-	bool AD2_Ch01_Pt100_N_Get;
-	bool AD2_Ch01_REF_N_Get;
-	bool AD2_Ch12_REF_P_Get;
-	bool AD2_Ch12_Pt100_P_Get;
-	bool AD2_Ch12_Pt100_N_Get;
-	bool AD2_Ch12_REF_N_Get;
-	
-	bool ADC1_PT100_T_ConverEnd;
-	bool ADC2_PT100_T_ConverEnd;
-	bool ADC1_PT100_T2_ConverEnd;
-	bool ADC2_PT100_T2_ConverEnd;
-	
-	bool Refrigerator_State;
-	bool RecirculatingBath_State;
-	bool BigHeater_State;
-	bool SmallHeater_State;
 	bool Modbus_State;
 	bool EV1_State;
 	bool EV2_State;
 	bool EV3_State;
 	bool EV4_State;
 	
-	bool Save_PID_to_EEPROM;
-	bool Save_NTC_to_EEPROM;
+	bool Save_Kp_to_EEPROM;
+	bool Save_Ki_to_EEPROM;
+	bool Save_Kd_to_EEPROM;
+	bool Save_MaxT_to_EEPROM;
+	bool Save_MinT_to_EEPROM;
 	
-	float Flash_EEPROM;
-	int Save_PID_To;
+	bool Save_B1R1_to_EEPROM;
+	bool Save_B1R2_to_EEPROM;
+	bool Save_B1R3_to_EEPROM;
+	bool Save_B1R4_to_EEPROM;
+	bool Save_B1V_to_EEPROM;
 	
-	int Relay_State;
+	bool Save_B2R1_to_EEPROM;
+	bool Save_B2R2_to_EEPROM;
+	bool Save_B2R3_to_EEPROM;
+	bool Save_B2R4_to_EEPROM;
+	bool Save_B2V_to_EEPROM;
 	
-	bool Debug_Output_State;
-	bool Debug_Temperature_Transmit;
-	bool Debug_Resistance_Transmit;
-	
-	bool T_Target_Update;
+	bool Save_B3R1_to_EEPROM;
+	bool Save_B3R2_to_EEPROM;
+	bool Save_B3R3_to_EEPROM;
+	bool Save_B3R4_to_EEPROM;
+	bool Save_B3V_to_EEPROM;
 }Flag_t;
 
 void data_process_thread_entry(void *parameter);
+void Cal_Resistance_1_Channel(void);
 void Cal_Resistance_8_Channel(void);
 
 #endif

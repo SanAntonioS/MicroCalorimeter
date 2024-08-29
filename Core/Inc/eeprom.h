@@ -1,10 +1,7 @@
 #ifndef _EEPROM_H
 #define _EEPROM_H
 
-#include <rtthread.h>
-#include <stdio.h>
-#include "main.h"
-#include "I2C.h"
+#include "sys.h"
 
 #define AT24C01  127   //AT24C01有127个字节，是从0开始的
 #define AT24C02  255   //AT24C02有255个字节，是从0开始的
@@ -17,6 +14,31 @@
 #define AT24C256 32767 //AT24C256有32767个字节，是从0开始的
 
 #define EE_TYPE AT24C256//若选用的芯片改变，只需修改此处
+
+#define	ADD_KP		0x00
+#define	ADD_KI		0x00+0x04
+#define	ADD_KD		0x00+0x04+0x04
+
+#define	ADD_MAXT	0x00+0x04+0x04+0x04
+#define	ADD_MINT	0x00+0x04+0x04+0x04+0x04
+
+#define	ADD_B1R1	ADD_MINT+0x04
+#define	ADD_B1R2	ADD_MINT+0x04+0x04
+#define	ADD_B1R3	ADD_MINT+0x04+0x04+0x04
+#define	ADD_B1R4	ADD_MINT+0x04+0x04+0x04+0x04
+#define	ADD_B1V		ADD_MINT+0x04+0x04+0x04+0x04+0x04
+
+#define	ADD_B2R1	ADD_B1V+0x04
+#define	ADD_B2R2	ADD_B1V+0x04+0x04
+#define	ADD_B2R3	ADD_B1V+0x04+0x04+0x04
+#define	ADD_B2R4	ADD_B1V+0x04+0x04+0x04+0x04
+#define	ADD_B2V		ADD_B1V+0x04+0x04+0x04+0x04+0x04
+
+#define	ADD_B3R1	ADD_B2V+0x04
+#define	ADD_B3R2	ADD_B2V+0x04+0x04
+#define	ADD_B3R3	ADD_B2V+0x04+0x04+0x04
+#define	ADD_B3R4	ADD_B2V+0x04+0x04+0x04+0x04
+#define	ADD_B3V		ADD_B2V+0x04+0x04+0x04+0x04+0x04
 
 union Union_Data
 {
@@ -32,6 +54,8 @@ union Union_Data2
   int Data_Int;
 };
 
+void eeprom_thread_entry(void *parameter);
+void EEPROM_Data_Init(void);
 uint8_t AT24Cxx_ReadOneByte(uint16_t addr);
 uint16_t AT24Cxx_ReadTwoByte(uint16_t addr);
 void AT24Cxx_WriteOneByte(uint16_t addr, uint8_t dt);

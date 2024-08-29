@@ -18,7 +18,7 @@
 // <h>Basic Configuration
 // <o>Maximal level of thread priority <8-256>
 //  <i>Default: 32
-#define RT_THREAD_PRIORITY_MAX  8
+#define RT_THREAD_PRIORITY_MAX  32
 // <o>OS tick per second
 //  <i>Default: 1000   (1ms)
 #define RT_TICK_PER_SECOND  1000
@@ -27,7 +27,7 @@
 #define RT_ALIGN_SIZE   4
 // <o>the max length of object name<2-16>
 //  <i>Default: 8
-#define RT_NAME_MAX    8
+#define RT_NAME_MAX    16
 // <c1>Using RT-Thread components initialization
 //  <i>Using RT-Thread components initialization
 #define RT_USING_COMPONENTS_INIT

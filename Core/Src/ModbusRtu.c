@@ -17,6 +17,7 @@ uint16_t Data_CRC;
 uint16_t crc_result;
 
 extern rt_sem_t get_uart3_sem(void);
+extern rt_sem_t get_eeprom_sem(void);
 
 void data_send_thread_entry(void *parameter)
 {
@@ -44,27 +45,27 @@ void ModbusRtuTask(void)
 		Data_CRC = (uart3.rx_data[uart3.len - 2] << 8) + uart3.rx_data[uart3.len - 1];
 
 		//更新寄存器值
-		Register.Pv = (data.R2);		
+		Register.Pv = (data.averageR2);		
 		Register.Kp = (data.Kp);
 		Register.Ki = (data.Ki);
-		Register.Sv = (data.R1);
-		Register.Resistance = (data.R_PT100);
-		Register.OUT = (data.R4);
+		Register.Sv = (data.averageR1);
+		Register.Resistance = (data.Voltage_Target);
+		Register.OUT = (data.averageR4);
 		Register.NTC_A = (data.NTC_A);
 		Register.NTC_B = (data.NTC_B);
 		Register.NTC_C = (data.NTC_C);
 		Register.NTC_D = (data.NTC_D);
 		Register.NTC_E = (data.NTC_E);
 		Register.NTC_F = (data.NTC_F);
-		Register.Pv_OpenLoop = (data.Voltage);
+		Register.Pv_OpenLoop = (data.averageVoltage);
 		Register.EV1 = (Flag.EV1_State);
 		Register.EV2 = (Flag.EV2_State);
 		Register.EV3 = (Flag.EV3_State);
 		Register.EV4 = (Flag.EV4_State);
 		Register.Modbus_Switch = (Flag.Modbus_State);
 		Register.Kd = (data.Kd);
-		Register.Pv2 = (data.R3);
-		Register.Resistance2 = (data.R2_PT100);
+		Register.Pv2 = (data.averageR3);
+		Register.Resistance2 = (data.Power);
 		Register.NTC_A2 = (data.NTC_A2);
 		Register.NTC_B2 = (data.NTC_B2);
 		Register.NTC_C2 = (data.NTC_C2);
@@ -223,6 +224,16 @@ void ModbusRtuTask(void)
 			case 0x10: {
 				//获取读寄存器地址
 				Register_Addr = (uart3.rx_data[2] << 8) + uart3.rx_data[3];
+				
+				switch(Register_Addr)
+				{
+					case 0x0102:	Flag.Save_Kp_to_EEPROM = 1;break;
+					case 0x0104:	Flag.Save_Ki_to_EEPROM = 1;break;
+					case 0x012B:	Flag.Save_Kd_to_EEPROM = 1;break;
+					case 0x014A:	Flag.Save_MaxT_to_EEPROM = 1;break;
+					case 0x014C:	Flag.Save_MinT_to_EEPROM = 1;break;
+					default:break;
+				}
 
 				//获取读寄存器数量
 				Register_Num = (uart3.rx_data[4] << 8) + uart3.rx_data[5];
@@ -236,7 +247,7 @@ void ModbusRtuTask(void)
 				//更新寄存器值至数据中
 				data.Kp = LtoB_Float(Register.Kp);
 				data.Ki = LtoB_Float(Register.Ki);
-				data.T_Target = LtoB_Float(Register.Sv);
+				data.Voltage_Target = LtoB_Float(Register.Sv);
 				data.NTC_A = LtoB_Double(Register.NTC_A);
 				data.NTC_B = LtoB_Double(Register.NTC_B);
 				data.NTC_C = LtoB_Double(Register.NTC_C);
@@ -274,8 +285,8 @@ void ModbusRtuTask(void)
 				HAL_UART_Transmit(&huart3, uart3.tx_data, 8, 0xffff);
 				uart3.len = 0;
 				
-				Flag.Save_NTC_to_EEPROM = 1;
-				Flag.Save_PID_to_EEPROM = 1;
+				rt_sem_t eeprom_sem = get_eeprom_sem();
+				rt_sem_release(eeprom_sem);
 
 			}break;
 			default:break;

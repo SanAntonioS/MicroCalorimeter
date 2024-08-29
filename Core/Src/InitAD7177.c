@@ -82,7 +82,7 @@ void InitAD7177(struct ad717x_device *device,uint32_t addr)
 	//④初始化各寄存器值------------------------------------------------------
 	//（1）配置差分输入通道
 	ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
-		+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x01);  
+		+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x01); 
 	AD717X_WriteRegister( device, AD717X_CHMAP0_REG);  
 	//（2）接口寄存器，选择转换位数
 	ad7177_2_regs[2].value =  AD717X_IFMODE_REG_WL32;                       

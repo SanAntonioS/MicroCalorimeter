@@ -63,6 +63,7 @@ static void cpu_usage_thread_entry(void *parameter);
 static rt_sem_t sem;
 static rt_sem_t data_process_sem;
 static rt_sem_t uart3_sem;
+static rt_sem_t eeprom_sem;
 
 rt_sem_t get_semaphore(void) {
     return sem;
@@ -74,6 +75,10 @@ rt_sem_t get_data_process_sem(void) {
 
 rt_sem_t get_uart3_sem(void) {
     return uart3_sem;
+}
+
+rt_sem_t get_eeprom_sem(void) {
+    return eeprom_sem;
 }
 /* USER CODE END 0 */
 
@@ -112,6 +117,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 //	rt_show_version();
 	cpu_usage_init();
+	I2C_Config();
 	HAL_NVIC_DisableIRQ(EXTI4_IRQn);
 	InitAD7177(&device1,0);						//AD7177初始化
 	InitAD7177(&device2,0);						//AD7177初始化
@@ -139,12 +145,13 @@ int main(void)
 	sem = rt_sem_create("my_semaphore", 1, RT_IPC_FLAG_FIFO);
 	data_process_sem = rt_sem_create("data_process_sem", 1, RT_IPC_FLAG_FIFO);
 	uart3_sem = rt_sem_create("uart3_sem", 1, RT_IPC_FLAG_FIFO);
+	eeprom_sem = rt_sem_create("eeprom_sem", 1, RT_IPC_FLAG_FIFO);
 	
 	rt_thread_t led1_thread =
 	rt_thread_create( "led1",
 										led1_thread_entry,
 										RT_NULL,
-										512,
+										1024,
 										5,
 										20);
                    
@@ -152,19 +159,6 @@ int main(void)
         rt_thread_startup(led1_thread);
     else
         return -1;
-		
-//	rt_thread_t cpu_usage_thread =
-//	rt_thread_create("cpu_usage_thread",
-//									cpu_usage_thread_entry,
-//									RT_NULL,
-//									255,
-//									4,
-//									20);
-
-//	if(cpu_usage_thread != RT_NULL)
-//			rt_thread_startup(cpu_usage_thread);
-//	else
-//			return -1; 
 		
 	rt_thread_t watchdog_thread =
 	rt_thread_create("watchdog",
@@ -196,7 +190,7 @@ int main(void)
 	rt_thread_create("data_process",
 										data_process_thread_entry,
 										RT_NULL,
-										255,
+										700,
 										4,
 										20);
 
@@ -217,6 +211,19 @@ int main(void)
 			rt_thread_startup(data_send_thread);
 	else
 			return -1; 
+	
+	rt_thread_t eeprom_thread =
+	rt_thread_create("eeprom",
+										eeprom_thread_entry,
+										RT_NULL,
+										512,
+										8,
+										20);
+
+	if(eeprom_thread != RT_NULL)
+		rt_thread_startup(eeprom_thread);
+	else
+		return -1;
 }
 
 static void led1_thread_entry(void* parameter)
@@ -227,7 +234,11 @@ static void led1_thread_entry(void* parameter)
 		rt_thread_delay(40);   /* 延时500个tick */
 	
 		HAL_GPIO_TogglePin(LED1_GPIO_Port,LED1_Pin);    
-		rt_thread_delay(960);   /* 延时500个tick */		
+		rt_thread_delay(960);   /* 延时500个tick */	
+
+//		rt_uint32_t total, used, max_used;
+//		rt_memory_info(&total, &used, &max_used);
+//		rt_kprintf("Total memory: %u, Used memory: %u, Max used memory: %u\n", total, used, max_used);		
 	}
 }
 
