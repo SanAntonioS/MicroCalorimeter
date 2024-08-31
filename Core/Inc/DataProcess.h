@@ -5,16 +5,17 @@
 
 typedef struct Data
 {
-	float R1;
-	float R2;
-	float R3;
-	float R4;
-	float Voltage;
+	double R1;
+	double R2;
+	double R3;
+	double R4;
+	double Voltage;
 	float averageR1;
 	float averageR2;
 	float averageR3;
 	float averageR4;
-	float averageVoltage;
+	double averageVoltage;
+	
 	float Voltage_Target;
 	float Power;
 	float T_Target;
@@ -24,21 +25,29 @@ typedef struct Data
 	float Kd;
 	float Max_Power;
 	
+	float Baseline_Temperature;
+	double Baseline_Voltage;
+	
 	float Baseline1_R1;
 	float Baseline1_R2;
 	float Baseline1_R3;
 	float Baseline1_R4;
 	float Baseline1_V;
+	float Baseline1_T;
+	
 	float Baseline2_R1;
 	float Baseline2_R2;
 	float Baseline2_R3;
 	float Baseline2_R4;
 	float Baseline2_V;
+	float Baseline2_T;
+	
 	float Baseline3_R1;
 	float Baseline3_R2;
 	float Baseline3_R3;
 	float Baseline3_R4;
 	float Baseline3_V;
+	float Baseline3_T;
 	
 	double NTC_A;
 	double NTC_B;
@@ -61,6 +70,7 @@ typedef struct Flag
 {
 	bool Start_Control;
 	bool Start_AT;
+	bool Start_Baseline;
 	
 	bool Modbus_State;
 	bool EV1_State;

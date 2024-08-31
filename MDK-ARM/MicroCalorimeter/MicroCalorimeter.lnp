@@ -11,6 +11,7 @@
 "microcalorimeter\dataprocess.o"
 "microcalorimeter\crc16.o"
 "microcalorimeter\modbusrtu.o"
+"microcalorimeter\maintask.o"
 "microcalorimeter\main.o"
 "microcalorimeter\gpio.o"
 "microcalorimeter\dma.o"

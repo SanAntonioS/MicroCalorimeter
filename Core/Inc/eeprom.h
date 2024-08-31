@@ -65,6 +65,4 @@ uint32_t AT24Cxx_ReadLenByte(uint16_t ReadAddr, uint8_t Len);
 void AT24Cxx_Read(uint16_t ReadAddr, uint16_t *pBuffer, uint16_t NumToRead);
 void AT24Cxx_Write(uint16_t WriteAddr, uint16_t *pBuffer, uint16_t NumToWrite);
 void AT24Cxx_WRCheck(uint16_t addr, uint8_t dt);
-void at24c256_test(void);
-
 #endif

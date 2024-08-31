@@ -11,7 +11,7 @@ void Get_R3(void);
 void Get_R4(void);
 void Get_Voltage(void);
 void Change_Relay_State(void);
-float RegValue_To_Voltage(uint32_t RegValue);
+double RegValue_To_Voltage(uint32_t RegValue);
 void Get_Resistance_1_Channel(void);
 void Get_Resistance_8_Channel(void);
 

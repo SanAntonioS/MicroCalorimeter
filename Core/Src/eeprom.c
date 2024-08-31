@@ -2,10 +2,6 @@
 
 union Union_Data UnionDataERW;	//定义union类型的变量,用于打包转换上位机传送的浮点数
 
-rt_uint8_t byte_value = 0;
-float Kp = 2.0;
-float res = 0.5;
-
 extern Flag_t Flag;
 extern Data_t data;
 extern rt_sem_t get_eeprom_sem(void);
@@ -416,26 +412,6 @@ void EEPROM_Data_Init(void)
 		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3V+i);
 	}
 	data.Baseline3_V=UnionDataERW.Data_Float;
-}
-
-/* 测试函数 */
-void at24c256_test(void)
-{
-	rt_kprintf("eeprom task\r\n");
-	UnionDataERW.Data_Float=Kp;//写入Kp
-	for(int i=0;i<4;i++)
-	{
-		AT24Cxx_WriteOneByte((0x00+i),UnionDataERW.Data_Unchar[3-i]);
-	}
-	for(int i=0;i<4;i++)//读取Kp
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(0x00+i);
-	}
-	res=UnionDataERW.Data_Float;
-	
-	char buffer[32];
-	sprintf(buffer, "%f\r\n", res);
-	rt_kprintf("%s", buffer);
 }
 
 /*******************************************************************************

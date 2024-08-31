@@ -114,6 +114,7 @@ int main(void)
   MX_DMA_Init();
   MX_IWDG_Init();
   MX_USART3_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 //	rt_show_version();
 	cpu_usage_init();
@@ -132,6 +133,10 @@ int main(void)
 	HAL_UART_DMAStop(&huart3);
 	__HAL_UART_ENABLE_IT(&huart3, UART_IT_RXNE);
 	__HAL_UART_ENABLE_IT(&huart3, UART_IT_IDLE);
+	
+	HAL_UART_DMAStop(&huart1);
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
+	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
 	
 	IOUT_P;
 	Choose_R1;
@@ -190,7 +195,7 @@ int main(void)
 	rt_thread_create("data_process",
 										data_process_thread_entry,
 										RT_NULL,
-										700,
+										1024,
 										4,
 										20);
 
@@ -222,6 +227,19 @@ int main(void)
 
 	if(eeprom_thread != RT_NULL)
 		rt_thread_startup(eeprom_thread);
+	else
+		return -1;
+	
+	rt_thread_t maintask_thread =
+	rt_thread_create("maintask",
+										main_task_thread_entry,
+										RT_NULL,
+										512,
+										9,
+										20);
+
+	if(maintask_thread != RT_NULL)
+		rt_thread_startup(maintask_thread);
 	else
 		return -1;
 }

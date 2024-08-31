@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 #include "I2C.h"
 #include "cpu_usage.h"
@@ -22,6 +23,7 @@
 #include "DataProcess.h"
 #include "CRC16.h"
 #include "ModbusRtu.h"
+#include "MainTask.h"
 
 //电流正向，继电器向上打
 #define	IOUT_P	HAL_GPIO_WritePin(Relay6_L_GPIO_Port, Relay6_L_Pin, GPIO_PIN_SET);\

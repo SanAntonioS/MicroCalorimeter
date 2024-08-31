@@ -45,26 +45,26 @@ void ModbusRtuTask(void)
 		Data_CRC = (uart3.rx_data[uart3.len - 2] << 8) + uart3.rx_data[uart3.len - 1];
 
 		//¸üÐÂ¼Ä´æÆ÷Öµ
-		Register.Pv = (data.averageR2);		
+		Register.Pv = data.averageR2;		
 		Register.Kp = (data.Kp);
 		Register.Ki = (data.Ki);
-		Register.Sv = (data.averageR1);
+		Register.Sv = data.averageR1;
 		Register.Resistance = (data.Voltage_Target);
-		Register.OUT = (data.averageR4);
-		Register.NTC_A = (data.NTC_A);
+		Register.OUT = data.averageR4;
+		Register.NTC_A = data.averageVoltage;
 		Register.NTC_B = (data.NTC_B);
 		Register.NTC_C = (data.NTC_C);
 		Register.NTC_D = (data.NTC_D);
 		Register.NTC_E = (data.NTC_E);
 		Register.NTC_F = (data.NTC_F);
-		Register.Pv_OpenLoop = (data.averageVoltage);
+		Register.Pv_OpenLoop = (data.T_OpenPID_Target);
 		Register.EV1 = (Flag.EV1_State);
 		Register.EV2 = (Flag.EV2_State);
 		Register.EV3 = (Flag.EV3_State);
 		Register.EV4 = (Flag.EV4_State);
 		Register.Modbus_Switch = (Flag.Modbus_State);
 		Register.Kd = (data.Kd);
-		Register.Pv2 = (data.averageR3);
+		Register.Pv2 = data.averageR3;
 		Register.Resistance2 = (data.Power);
 		Register.NTC_A2 = (data.NTC_A2);
 		Register.NTC_B2 = (data.NTC_B2);
@@ -154,33 +154,31 @@ void ModbusRtuTask(void)
 				case 0x0126: {
 					if (uart3.rx_data[5] == 0x01){
 						Flag.EV1_State = 1;
-//						HAL_GPIO_WritePin(P7_GPIO_Port,P7_Pin,GPIO_PIN_SET);
 					}
 					else{
 						Flag.EV1_State = 0;
-//						HAL_GPIO_WritePin(P7_GPIO_Port,P7_Pin,GPIO_PIN_RESET);
 					}
 				}break;
 
 				case 0x0127: {
 					if (uart3.rx_data[5] == 0x01){
 						Flag.EV2_State = 1;
-//						HAL_GPIO_WritePin(P8_GPIO_Port,P8_Pin,GPIO_PIN_SET);
+						Flag.Start_Baseline = 1;
 					}
 					else{
 						Flag.EV2_State = 0;
-//						HAL_GPIO_WritePin(P8_GPIO_Port,P8_Pin,GPIO_PIN_RESET);
+						Flag.Start_Baseline = 0;
 					}
 				}break;
 
 				case 0x0128: {
 					if (uart3.rx_data[5] == 0x01){
 						Flag.EV3_State = 1;
-//						HAL_GPIO_WritePin(P9_GPIO_Port,P9_Pin,GPIO_PIN_SET);
+						Flag.Start_AT = 1;
 					}
 					else{
 						Flag.EV3_State = 0;
-//						HAL_GPIO_WritePin(P9_GPIO_Port,P9_Pin,GPIO_PIN_RESET);
+						Flag.Start_AT = 0;
 					}
 				}break;
 
@@ -188,7 +186,6 @@ void ModbusRtuTask(void)
 					if (uart3.rx_data[5] == 0x01){
 						Flag.EV4_State = 1;
 						Flag.Start_Control= 1;
-						Flag.Start_AT= 0;
 					}
 					else{
 						Flag.EV4_State = 0;
@@ -254,7 +251,7 @@ void ModbusRtuTask(void)
 				data.NTC_D = LtoB_Double(Register.NTC_D);
 				data.NTC_E = LtoB_Double(Register.NTC_E);
 				data.NTC_F = LtoB_Double(Register.NTC_F);
-				data.T_OpenPID_Target = LtoB_Float(Register.Pv_OpenLoop);
+				data.Baseline_Temperature = LtoB_Float(Register.Pv_OpenLoop);
 				data.Kd = LtoB_Float(Register.Kd);
 				data.NTC_A2 = LtoB_Double(Register.NTC_A2);
 				data.NTC_B2 = LtoB_Double(Register.NTC_B2);
@@ -292,6 +289,7 @@ void ModbusRtuTask(void)
 			default:break;
 			}
 		}
+		memset(uart3.rx_data, 0, sizeof(uart3.rx_data));
 }
 
 float LtoB_Float(float data)

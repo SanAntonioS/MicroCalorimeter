@@ -458,6 +458,11 @@
               <FilePath>..\Core\Src\ModbusRtu.c</FilePath>
             </File>
             <File>
+              <FileName>MainTask.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\MainTask.c</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>

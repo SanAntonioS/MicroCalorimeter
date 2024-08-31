@@ -9,11 +9,11 @@ extern rt_sem_t get_data_process_sem(void);
 
 // 滑动平均数据结构
 typedef struct {
-    float values[AVERAGE_SIZE];  // 保存滑动窗口内的值
+    double values[AVERAGE_SIZE];  // 保存滑动窗口内的值
     int size;        // 滑动窗口的大小
     int index;       // 当前插入值的位置
     int count;       // 当前已填入的元素数量
-    float sum;      // 当前窗口内所有值的和
+    double sum;      // 当前窗口内所有值的和
 } SlidingAverage;
 
 // 初始化滑动平均结构
@@ -28,7 +28,7 @@ void init_sliding_average(SlidingAverage *avg, int size) {
 }
 
 // 计算新的滑动平均值
-float update_sliding_average(SlidingAverage *avg, float new_value) {
+double update_sliding_average(SlidingAverage *avg, double new_value) {
     // 如果窗口已满，移除最旧的值
     if (avg->count == avg->size) {
         avg->sum -= avg->values[avg->index];
