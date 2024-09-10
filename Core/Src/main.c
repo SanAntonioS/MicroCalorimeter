@@ -138,8 +138,12 @@ int main(void)
 	__HAL_UART_ENABLE_IT(&huart1, UART_IT_RXNE);
 	__HAL_UART_ENABLE_IT(&huart1, UART_IT_IDLE);
 	
+	#ifdef VERSION_R4V1
 	IOUT_P;
 	Choose_R1;
+	#else
+	Choose_V2;
+	#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

@@ -1,6 +1,6 @@
 #include "DataConversion.h"
 
-#define REF_R 2500.0			//参考电阻阻值，单位欧姆
+#define REF_R 3000.0			//参考电阻阻值，单位欧姆
 
 unsigned long RegisterValue_AD1_Ch03 = 0;
 unsigned long RegisterValue_AD1_Ch13 = 0;
@@ -39,7 +39,9 @@ void data_conversion_thread_entry(void *parameter)
 
 void DataConversion_Task(void)
 {
-	rt_thread_delay(80);
+#ifdef VERSION_R4V1
+	//80ms-40uV,200ms-35uV(0x09);200ms(0x10)-1uV;200ms(0x11)-0.9uV
+	rt_thread_delay(166);
 	switch(AD_Channel_State){
 //---------------------------R1
 		case 0:
@@ -126,6 +128,143 @@ void DataConversion_Task(void)
 		}break;
 		default:break;
 	}
+#else
+	switch(AD_Channel_State){
+//---------------------------V2~V5
+		case 0:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V2 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 1:	Get_Voltage();	break;
+		case 2:	Get_Voltage();	break;
+		case 3:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V3 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 4:	Get_Voltage();	break;
+		case 5:	Get_Voltage();	break;
+		case 6:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V4 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 7:	Get_Voltage();	break;
+		case 8:	Get_Voltage();	break;
+		case 9:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V5 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+//------------------------Voltage1
+		case 10:	Get_Voltage();	break;
+		case 11:	Get_Voltage();	break;
+//---------------------------R2
+		case 12:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V6 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 13:	Get_Voltage();	break;
+		case 14:	Get_Voltage();	break;
+		case 15:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V7 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 16:	Get_Voltage();	break;
+		case 17:	Get_Voltage();	break;
+		case 18:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V8 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+		case 19:	Get_Voltage();	break;
+		case 20:	Get_Voltage();	break;
+		case 21:{
+			rt_thread_delay(200);
+			//读取寄存器值
+			RegisterValue = AD717X_ReadRegister(&device1,AD717X_DATA_REG);
+			data.V9 = (RegValue_To_Voltage(RegisterValue)/19.99) + 0.0000083 - 0.0000207;
+			
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
+			
+			Choose_V1;
+			AD_State = 1;
+			AD_Channel_State++;
+		}break;
+//------------------------Voltage
+		case 22: 	Get_Voltage();	break;
+		case 23:	Get_Voltage();	break;
+		default:break;
+	}
+#endif
 	
 	ad7177_2_regs[1].value = 0x0200;
 	switch(AD_State){
@@ -192,8 +331,7 @@ void Get_R1(void)
 			
 			data.R1 = REF_R*(Vsam_P - Vsam_N)/(Vref_P - Vref_N);
 //			rt_kprintf("R1 : %d ohm\r\n", (int)data.R1);
-			
-			Choose_R2;
+			Choose_V;
 			R1_Channel_State=0;
 		}break;
 		default:break;
@@ -250,7 +388,7 @@ void Get_R2(void)
 			
 			data.R2 = REF_R*(Vsam_P - Vsam_N)/(Vref_P - Vref_N);
 //			rt_kprintf("R2 : %d ohm\r\n", (int)data.R2);
-			Choose_R3;
+			Choose_V;
 			R2_Channel_State=0;
 		}break;
 	}
@@ -306,7 +444,7 @@ void Get_R3(void)
 			
 			data.R3 = REF_R*(Vsam_P - Vsam_N)/(Vref_P - Vref_N);
 //			rt_kprintf("R3 : %d ohm\r\n", (int)data.R3);
-			Choose_R4;
+			Choose_V;
 			R3_Channel_State=0;
 		}break;
 	}
@@ -362,7 +500,7 @@ void Get_R4(void)
 			
 			data.R4 = REF_R*(Vsam_P - Vsam_N)/(Vref_P - Vref_N);
 //			rt_kprintf("R4 : %d ohm\r\n", (int)data.R4);
-			Choose_R1;
+			Choose_V;
 			R4_Channel_State=0;
 		}break;
 	}
@@ -371,7 +509,10 @@ void Get_R4(void)
 void Get_Voltage(void)
 {
 	static uint8_t Voltage_Channel_State = 0;
-//	rt_thread_delay(60);
+	#ifdef VERSION_R4V1
+	#else
+	rt_thread_delay(50);
+	#endif
 	switch(Voltage_Channel_State){
 	case 0:{
 			//读取寄存器值
@@ -475,20 +616,96 @@ void Get_Voltage(void)
 			//读取寄存器值
 			RegisterValue = AD717X_ReadRegister(&device8,AD717X_DATA_REG);
 			V8 = RegValue_To_Voltage(RegisterValue);
-			data.Voltage = (V1+V2+V3+V4+V5+V6+V7+V8)/8.0;
+			data.Voltage = (((V1+V2+V3+V4+V5+V6+V7+V8)/8.0)/19.99) + 0.0000083 - 0.0000207;
 //			rt_kprintf("V : %d mV\r\n", (int)(data.Voltage*1000.0));
 			
 			DisableIOSPI(8);
 			
+			#ifdef VERSION_R4V1
 			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
 			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x01); //切换测量通道
+			#else
+			ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+			+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); //切换测量通道
+			#endif
 			AD717X_WriteRegister(&device1, AD717X_CHMAP0_REG);//写入配置
 			
 			rt_sem_t data_process_sem = get_data_process_sem();
 			rt_sem_release(data_process_sem);
 			
+			#ifdef VERSION_R4V1
+			switch(AD_Channel_State){
+				case 11:	Choose_R2;break;
+				case 23:	Choose_R3;break;
+				case 35:	Choose_R4;break;
+				case 47:	Choose_R1;break;
+				default:break;
+			}
+			#else
+			switch(AD_Channel_State){
+				case 1:{
+					AD_Channel_State++;
+				}break;
+				case 2:{
+					Choose_V3;
+					AD_Channel_State++;
+				}break;
+				case 4:{
+					AD_Channel_State++;
+				}break;
+				case 5:{
+					Choose_V4;
+					AD_Channel_State++;
+				}break;
+				case 7:{
+					AD_Channel_State++;
+				}break;
+				case 8:{
+					Choose_V5;
+					AD_Channel_State++;
+				}break;
+				case 10:{
+					AD_Channel_State++;
+				}break;
+				case 11:{
+					Choose_V6;
+					AD_Channel_State++;
+				}break;
+				case 13:{
+					AD_Channel_State++;
+				}break;
+				case 14:{
+					Choose_V7;
+					AD_Channel_State++;
+				}break;
+				case 16:{
+					AD_Channel_State++;
+				}break;
+				case 17:{
+					Choose_V8;
+					AD_Channel_State++;
+				}break;
+				case 19:{
+					AD_Channel_State++;
+				}break;
+				case 20:{
+					Choose_V9;
+					AD_Channel_State++;
+				}break;
+				case 22:{
+					AD_Channel_State++;
+				}break;
+				case 23:{
+					Choose_V2;
+					AD_Channel_State = 0;
+				}break;
+				default:break;
+			}
+			#endif
+			
 			AD_State = 1;
 			Voltage_Channel_State=0;
+			
 		}break;
 		default:break;
 	}

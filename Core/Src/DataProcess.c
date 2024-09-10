@@ -68,6 +68,9 @@ void data_process_thread_entry(void *parameter)
 		
 		if(result == RT_EOK){
 			
+			data.averageVoltage = update_sliding_average(&avg1, data.Voltage);
+			
+			#ifdef VERSION_R4V1
 			if(data.R1 > 3000)
 				data.R1 = 3000;
 			if(data.R1 < 0)
@@ -88,11 +91,11 @@ void data_process_thread_entry(void *parameter)
 			if(data.R4 < 0)
 				data.R4 = 0;
 			
-			data.averageVoltage = update_sliding_average(&avg1, data.Voltage);
 			data.averageR1 = update_sliding_average(&avg2, data.R1);
 			data.averageR2 = update_sliding_average(&avg3, data.R2);
 			data.averageR3 = update_sliding_average(&avg4, data.R3);
 			data.averageR4 = update_sliding_average(&avg5, data.R4);
+			#endif
 //			rt_kprintf("Voltage: %d mV, Sliding Average: %d mV\r\n", (int)(data.Voltage * 1000.0), (int)(data.averageVoltage * 1000.0));
 		}
 	}

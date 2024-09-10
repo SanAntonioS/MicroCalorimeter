@@ -81,8 +81,13 @@ void InitAD7177(struct ad717x_device *device,uint32_t addr)
 	device->regs = &ad7177_2_regs[0]; 
 	//④初始化各寄存器值------------------------------------------------------
 	//（1）配置差分输入通道
+	#ifdef VERSION_R4V1
 	ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
 		+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x01); 
+	#else
+	ad7177_2_regs[7].value = AD717X_CHMAP_REG_CH_EN + AD717X_CHMAP_REG_SETUP_SEL(0)
+		+ AD717X_CHMAP_REG_AINPOS(0x03) + AD717X_CHMAP_REG_AINNEG(0x00); 
+	#endif
 	AD717X_WriteRegister( device, AD717X_CHMAP0_REG);  
 	//（2）接口寄存器，选择转换位数
 	ad7177_2_regs[2].value =  AD717X_IFMODE_REG_WL32;                       
@@ -105,7 +110,11 @@ void InitAD7177(struct ad717x_device *device,uint32_t addr)
 	 //（5）配置滤波器配置寄存器 ，选择滤波器，ADC输出速率；
 	ad7177_2_regs[15].value = AD717X_FILT_CONF_REG_SINC3_MAP(0) // SINC3_MAP0  
 		+ AD717X_FILT_CONF_REG_ORDER(0)  // 数字滤波器阶数
+		#ifdef VERSION_R4V1
+			+ AD717X_FILT_CONF_REG_ODR(0x12); // ADC 输出数据速率 0x14-> 5sps ;0x13-> 10sps ;0x12-> 16.66sps
+		#else
 			+ AD717X_FILT_CONF_REG_ODR(0x09); // ADC 输出数据速率 0x14-> 5sps ;0x13-> 10sps ;0x12-> 16.66sps
+		#endif
 	AD717X_WriteRegister( device, AD717X_FILTCON0_REG);  
   DisableIOSPI(device->slave_select_id);
 }

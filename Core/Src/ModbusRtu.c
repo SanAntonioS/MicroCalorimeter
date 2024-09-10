@@ -52,12 +52,12 @@ void ModbusRtuTask(void)
 		Register.Resistance = (data.Voltage_Target);
 		Register.OUT = data.averageR4;
 		Register.NTC_A = data.averageVoltage;
-		Register.NTC_B = (data.NTC_B);
+		Register.NTC_B = data.Baseline_Voltage;
 		Register.NTC_C = (data.NTC_C);
 		Register.NTC_D = (data.NTC_D);
 		Register.NTC_E = (data.NTC_E);
 		Register.NTC_F = (data.NTC_F);
-		Register.Pv_OpenLoop = (data.T_OpenPID_Target);
+		Register.Pv_OpenLoop = data.Baseline_Temperature;
 		Register.EV1 = (Flag.EV1_State);
 		Register.EV2 = (Flag.EV2_State);
 		Register.EV3 = (Flag.EV3_State);

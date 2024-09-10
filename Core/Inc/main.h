@@ -86,38 +86,6 @@ void Error_Handler(void);
 #define LED1_GPIO_Port GPIOB
 #define LED2_Pin GPIO_PIN_13
 #define LED2_GPIO_Port GPIOB
-#define Relay8_R_Pin GPIO_PIN_14
-#define Relay8_R_GPIO_Port GPIOB
-#define Relay5_R_Pin GPIO_PIN_15
-#define Relay5_R_GPIO_Port GPIOB
-#define Relay7_R_Pin GPIO_PIN_8
-#define Relay7_R_GPIO_Port GPIOD
-#define Relay3_R_Pin GPIO_PIN_9
-#define Relay3_R_GPIO_Port GPIOD
-#define Relay4_R_Pin GPIO_PIN_10
-#define Relay4_R_GPIO_Port GPIOD
-#define Relay1_R_Pin GPIO_PIN_11
-#define Relay1_R_GPIO_Port GPIOD
-#define Relay6_R_Pin GPIO_PIN_12
-#define Relay6_R_GPIO_Port GPIOD
-#define Relay2_R_Pin GPIO_PIN_13
-#define Relay2_R_GPIO_Port GPIOD
-#define Relay3_L_Pin GPIO_PIN_0
-#define Relay3_L_GPIO_Port GPIOD
-#define Relay7_L_Pin GPIO_PIN_1
-#define Relay7_L_GPIO_Port GPIOD
-#define Relay5_L_Pin GPIO_PIN_2
-#define Relay5_L_GPIO_Port GPIOD
-#define Relay8_L_Pin GPIO_PIN_3
-#define Relay8_L_GPIO_Port GPIOD
-#define Relay2_L_Pin GPIO_PIN_4
-#define Relay2_L_GPIO_Port GPIOD
-#define Relay6_L_Pin GPIO_PIN_5
-#define Relay6_L_GPIO_Port GPIOD
-#define Relay1_L_Pin GPIO_PIN_6
-#define Relay1_L_GPIO_Port GPIOD
-#define Relay4_L_Pin GPIO_PIN_7
-#define Relay4_L_GPIO_Port GPIOD
 
 /* USER CODE BEGIN Private defines */
 

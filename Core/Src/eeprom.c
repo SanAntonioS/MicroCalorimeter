@@ -1,6 +1,7 @@
 #include "eeprom.h"
 
 union Union_Data UnionDataERW;	//定义union类型的变量,用于打包转换上位机传送的浮点数
+union Union_Data_Double UnionDataERW_Double;	//定义union类型的变量,用于打包转换上位机传送的浮点数
 
 extern Flag_t Flag;
 extern Data_t data;
@@ -89,217 +90,33 @@ void eeprom_thread_entry(void *parameter)
 				Flag.Save_MinT_to_EEPROM = 0;
 			}
 			
-			//---------------------写入Baseline1_R1--------------------------
-			if(Flag.Save_B1R1_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline1_R1;
+			//---------------------写入Baseline_Temperature--------------------------
+			if(Flag.Save_Baseline_Temperature_to_EEPROM){
+				UnionDataERW.Data_Float = data.Baseline_Temperature;
 				for(int i=0;i<4;i++)
 				{
-					AT24Cxx_WriteOneByte((ADD_B1R1+i),UnionDataERW.Data_Unchar[3-i]);
+					AT24Cxx_WriteOneByte((ADD_BaseT+i),UnionDataERW.Data_Unchar[3-i]);
 				}
 				for(int i=0;i<4;i++)
 				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R1+i);
+					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseT+i);
 				}
-				data.Baseline1_R1 = UnionDataERW.Data_Float;
-				Flag.Save_B1R1_to_EEPROM = 0;
+				data.Baseline_Temperature = UnionDataERW.Data_Float;
+				Flag.Save_Baseline_Temperature_to_EEPROM = 0;
 			}
-			//---------------------写入Baseline1_R2--------------------------
-			if(Flag.Save_B1R2_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline1_R2;
-				for(int i=0;i<4;i++)
+			//---------------------写入Baseline_Voltage--------------------------
+			if(Flag.Save_Baseline_Voltage_to_EEPROM){
+				UnionDataERW_Double.Data_Double = data.Baseline_Voltage;
+				for(int i=0;i<8;i++)
 				{
-					AT24Cxx_WriteOneByte((ADD_B1R2+i),UnionDataERW.Data_Unchar[3-i]);
+					AT24Cxx_WriteOneByte((ADD_BaseV+i),UnionDataERW_Double.Data_Unchar[7-i]);
 				}
-				for(int i=0;i<4;i++)
+				for(int i=0;i<8;i++)
 				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R2+i);
+					UnionDataERW_Double.Data_Unchar[7-i]=AT24Cxx_ReadOneByte(ADD_BaseV+i);
 				}
-				data.Baseline1_R2 = UnionDataERW.Data_Float;
-				Flag.Save_B1R2_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline1_R3--------------------------
-			if(Flag.Save_B1R3_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline1_R3;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B1R3+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R3+i);
-				}
-				data.Baseline1_R3 = UnionDataERW.Data_Float;
-				Flag.Save_B1R3_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline1_R4--------------------------
-			if(Flag.Save_B1R4_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline1_R4;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B1R4+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R4+i);
-				}
-				data.Baseline1_R4 = UnionDataERW.Data_Float;
-				Flag.Save_B1R4_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline1_V--------------------------
-			if(Flag.Save_B1V_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline1_V;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B1V+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1V+i);
-				}
-				data.Baseline1_V = UnionDataERW.Data_Float;
-				Flag.Save_B1V_to_EEPROM = 0;
-			}
-			
-			//---------------------写入Baseline2_R1--------------------------
-			if(Flag.Save_B2R1_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline2_R1;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B2R1+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R1+i);
-				}
-				data.Baseline2_R1 = UnionDataERW.Data_Float;
-				Flag.Save_B2R1_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline2_R2--------------------------
-			if(Flag.Save_B2R2_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline2_R2;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B2R2+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R2+i);
-				}
-				data.Baseline2_R2 = UnionDataERW.Data_Float;
-				Flag.Save_B2R2_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline2_R3--------------------------
-			if(Flag.Save_B2R3_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline2_R3;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B2R3+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R3+i);
-				}
-				data.Baseline2_R3 = UnionDataERW.Data_Float;
-				Flag.Save_B2R3_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline2_R4--------------------------
-			if(Flag.Save_B2R4_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline2_R4;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B2R4+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R4+i);
-				}
-				data.Baseline2_R4 = UnionDataERW.Data_Float;
-				Flag.Save_B2R4_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline2_V--------------------------
-			if(Flag.Save_B2V_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline2_V;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B2V+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2V+i);
-				}
-				data.Baseline2_V = UnionDataERW.Data_Float;
-				Flag.Save_B2V_to_EEPROM = 0;
-			}
-			
-			//---------------------写入Baseline3_R1--------------------------
-			if(Flag.Save_B3R1_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline3_R1;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B3R1+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R1+i);
-				}
-				data.Baseline3_R1 = UnionDataERW.Data_Float;
-				Flag.Save_B3R1_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline3_R2--------------------------
-			if(Flag.Save_B3R2_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline3_R2;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B3R2+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R2+i);
-				}
-				data.Baseline3_R2 = UnionDataERW.Data_Float;
-				Flag.Save_B3R2_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline3_R3--------------------------
-			if(Flag.Save_B3R3_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline3_R3;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B3R3+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R3+i);
-				}
-				data.Baseline3_R3 = UnionDataERW.Data_Float;
-				Flag.Save_B3R3_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline3_R4--------------------------
-			if(Flag.Save_B3R4_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline3_R4;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B3R4+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R4+i);
-				}
-				data.Baseline3_R4 = UnionDataERW.Data_Float;
-				Flag.Save_B3R4_to_EEPROM = 0;
-			}
-			//---------------------写入Baseline3_V--------------------------
-			if(Flag.Save_B3V_to_EEPROM){
-				UnionDataERW.Data_Float = data.Baseline3_V;
-				for(int i=0;i<4;i++)
-				{
-					AT24Cxx_WriteOneByte((ADD_B3V+i),UnionDataERW.Data_Unchar[3-i]);
-				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3V+i);
-				}
-				data.Baseline3_V = UnionDataERW.Data_Float;
-				Flag.Save_B3V_to_EEPROM = 0;
+				data.Baseline_Voltage = UnionDataERW_Double.Data_Double;
+				Flag.Save_Baseline_Voltage_to_EEPROM = 0;
 			}
 		}
 	}
@@ -334,84 +151,17 @@ void EEPROM_Data_Init(void)
 		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_MINT+i);
 	}
 	data.Min_Temperature=UnionDataERW.Data_Float;
-	//-------------------------读取存储基线1-----------------------------
+	//---------------------------读取存储基线-----------------------------
 	for(int i=0;i<4;i++)
 	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R1+i);
+		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseT+i);
 	}
-	data.Baseline1_R1=UnionDataERW.Data_Float;
+	data.Baseline_Temperature=UnionDataERW.Data_Float;
 	for(int i=0;i<4;i++)
 	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R2+i);
+		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseV+i);
 	}
-	data.Baseline1_R2=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R3+i);
-	}
-	data.Baseline1_R3=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1R4+i);
-	}
-	data.Baseline1_R4=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B1V+i);
-	}
-	data.Baseline1_V=UnionDataERW.Data_Float;
-	//-------------------------读取存储基线2-----------------------------
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R1+i);
-	}
-	data.Baseline2_R1=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R2+i);
-	}
-	data.Baseline2_R2=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R3+i);
-	}
-	data.Baseline2_R3=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2R4+i);
-	}
-	data.Baseline2_R4=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B2V+i);
-	}
-	data.Baseline2_V=UnionDataERW.Data_Float;
-	//-------------------------读取存储基线3-----------------------------
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R1+i);
-	}
-	data.Baseline3_R1=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R2+i);
-	}
-	data.Baseline3_R2=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R3+i);
-	}
-	data.Baseline3_R3=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3R4+i);
-	}
-	data.Baseline3_R4=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
-	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_B3V+i);
-	}
-	data.Baseline3_V=UnionDataERW.Data_Float;
+	data.Baseline_Voltage=UnionDataERW.Data_Float;
 }
 
 /*******************************************************************************

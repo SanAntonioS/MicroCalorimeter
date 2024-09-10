@@ -65,8 +65,6 @@ void Baseline_Controller(void)
 {
 	static float last_voltage = 0.0;
 	static int time = 0;
-	
-	data.Baseline1_T = data.Baseline_Temperature;
 
 	// 检查电压是否稳定在一定范围内
 	if (fabs(data.averageVoltage - last_voltage) < 10e-6) {
@@ -76,7 +74,7 @@ void Baseline_Controller(void)
 			// 如果时间超过设定的稳定时间，执行操作
 			if (time >= 300) { // 5分钟 = 300秒
 					// 保存当前电压作为基线
-					data.Baseline1_V = data.averageVoltage;
+					data.Baseline_Voltage = data.averageVoltage;
 					Flag.Start_Baseline = 0; // 任务完成后，重置标志位
 			}
 	} else {

@@ -29,6 +29,14 @@ typedef struct uart3
 	bool			rx_flag;
 }uart3_t;
 
+typedef struct uart2
+{
+	uint16_t 	len;
+	uint8_t		rx_data[255];
+	uint8_t		tx_data[255];
+	bool			rx_flag;
+}uart2_t;
+
 
 typedef struct Register
 {

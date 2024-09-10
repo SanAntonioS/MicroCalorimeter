@@ -10,6 +10,14 @@ typedef struct Data
 	double R3;
 	double R4;
 	double Voltage;
+	double V2;
+	double V3;
+	double V4;
+	double V5;
+	double V6;
+	double V7;
+	double V8;
+	double V9;
 	float averageR1;
 	float averageR2;
 	float averageR3;
@@ -27,27 +35,6 @@ typedef struct Data
 	
 	float Baseline_Temperature;
 	double Baseline_Voltage;
-	
-	float Baseline1_R1;
-	float Baseline1_R2;
-	float Baseline1_R3;
-	float Baseline1_R4;
-	float Baseline1_V;
-	float Baseline1_T;
-	
-	float Baseline2_R1;
-	float Baseline2_R2;
-	float Baseline2_R3;
-	float Baseline2_R4;
-	float Baseline2_V;
-	float Baseline2_T;
-	
-	float Baseline3_R1;
-	float Baseline3_R2;
-	float Baseline3_R3;
-	float Baseline3_R4;
-	float Baseline3_V;
-	float Baseline3_T;
 	
 	double NTC_A;
 	double NTC_B;
@@ -84,23 +71,8 @@ typedef struct Flag
 	bool Save_MaxT_to_EEPROM;
 	bool Save_MinT_to_EEPROM;
 	
-	bool Save_B1R1_to_EEPROM;
-	bool Save_B1R2_to_EEPROM;
-	bool Save_B1R3_to_EEPROM;
-	bool Save_B1R4_to_EEPROM;
-	bool Save_B1V_to_EEPROM;
-	
-	bool Save_B2R1_to_EEPROM;
-	bool Save_B2R2_to_EEPROM;
-	bool Save_B2R3_to_EEPROM;
-	bool Save_B2R4_to_EEPROM;
-	bool Save_B2V_to_EEPROM;
-	
-	bool Save_B3R1_to_EEPROM;
-	bool Save_B3R2_to_EEPROM;
-	bool Save_B3R3_to_EEPROM;
-	bool Save_B3R4_to_EEPROM;
-	bool Save_B3V_to_EEPROM;
+	bool Save_Baseline_Temperature_to_EEPROM;
+	bool Save_Baseline_Voltage_to_EEPROM;
 }Flag_t;
 
 void data_process_thread_entry(void *parameter);
