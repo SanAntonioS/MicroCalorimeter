@@ -1,6 +1,6 @@
 Dependencies for Project 'MicroCalorimeter', Target 'MicroCalorimeter': (DO NOT MODIFY !)
 F (startup_stm32f103xe.s)(0x66D2C620)(--cpu Cortex-M3 -g --pd "__MICROLIB SETA 1"-I.\RTE\_MicroCalorimeter-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.2.0\Device\Include--pd "__UVISION_VERSION SETA 526"--pd "_RTE_ SETA 1"--pd "STM32F10X_HD SETA 1"--list startup_stm32f103xe.lst--xref -o microcalorimeter\startup_stm32f103xe.o--depend microcalorimeter\startup_stm32f103xe.d)
-F (..\Core\Inc\sys.h)(0x66DE5DC1)()
+F (..\Core\Inc\sys.h)(0x670A2911)()
 F (..\rt-thread\bsp\board.c)(0x66CF0EC8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/board.o -MD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5AB0B844)
 I (..\rt-thread\include\rthw.h)(0x60ED86CD)
@@ -10,7 +10,7 @@ I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
 I (..\rt-thread\include\rtdef.h)(0x60ED86CD)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5AB0B858)
 I (..\rt-thread\include\rtservice.h)(0x60ED86CD)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\Core\Inc\gpio.h)(0x66A883F6)
 I (..\Core\Inc\main.h)(0x66D2C61E)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6475DEFA)
@@ -106,7 +106,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x5AB0B858)
 I (..\rt-thread\include\rtservice.h)(0x60ED86CD)
 F (..\Core\Src\eeprom.c)(0x66DE5DE1)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/eeprom.o -MD)
 I (..\Core\Inc\eeprom.h)(0x66DAD84D)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -163,7 +163,7 @@ I (..\Core\Inc\MainTask.h)(0x66D05C78)
 F (..\Core\Src\AD717X.c)(0x66C43603)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/ad717x.o -MD)
 I (..\Core\Inc\AD717x.h)(0x64CC4E1A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5AB0B844)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -218,7 +218,7 @@ I (..\Core\Inc\ModbusRtu.h)(0x66D998F2)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
 F (..\Core\Src\InitAD7177.c)(0x66D70B3B)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/initad7177.o -MD)
 I (..\Core\Inc\InitAD7177.h)(0x66BDEAA9)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -274,7 +274,7 @@ I (..\Core\Inc\ModbusRtu.h)(0x66D998F2)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
 F (..\Core\Src\IOSPI.c)(0x66E037AD)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/iospi.o -MD)
 I (..\Core\Inc\IOSPI.h)(0x66BDE1E4)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -328,9 +328,9 @@ I (..\Core\Inc\DataProcess.h)(0x66DAD84C)
 I (..\Core\Inc\CRC16.h)(0x65DBEFB8)
 I (..\Core\Inc\ModbusRtu.h)(0x66D998F2)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
-F (..\Core\Src\DataConversion.c)(0x66D7103D)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/dataconversion.o -MD)
+F (..\Core\Src\DataConversion.c)(0x67090724)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/dataconversion.o -MD)
 I (..\Core\Inc\DataConversion.h)(0x66D1783C)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -386,7 +386,7 @@ I (..\Core\Inc\ModbusRtu.h)(0x66D998F2)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
 F (..\Core\Src\DataProcess.c)(0x66DA5812)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/dataprocess.o -MD)
 I (..\Core\Inc\DataProcess.h)(0x66DAD84C)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -446,9 +446,9 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x5AB0B854)
 I (C:\Keil_v5\ARM\ARMCLANG\include\string.h)(0x5AB0B854)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdlib.h)(0x5AB0B850)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x5AB0B844)
-F (..\Core\Src\ModbusRtu.c)(0x66DA612E)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/modbusrtu.o -MD)
+F (..\Core\Src\ModbusRtu.c)(0x66E0F084)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/modbusrtu.o -MD)
 I (..\Core\Inc\ModbusRtu.h)(0x66D998F2)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -502,9 +502,9 @@ I (..\Core\Inc\DataConversion.h)(0x66D1783C)
 I (..\Core\Inc\DataProcess.h)(0x66DAD84C)
 I (..\Core\Inc\CRC16.h)(0x65DBEFB8)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
-F (..\Core\Src\MainTask.c)(0x66DA5FE8)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/maintask.o -MD)
+F (..\Core\Src\MainTask.c)(0x67090209)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-D__MICROLIB -gdwarf-3 -Oz -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include -I ../rt-thread/bsp -I ../rt-thread/components/finsh -I ../rt-thread/include/libc -I ../rt-thread/include-I./RTE/_MicroCalorimeter-IC:/Keil_v5/ARM/PACK/ARM/CMSIS/5.4.0/CMSIS/Core/Include-IC:/Keil_v5/ARM/PACK/Keil/STM32F1xx_DFP/2.2.0/Device/Include-D__UVISION_VERSION="526" -D_RTE_ -DSTM32F10X_HD -DUSE_HAL_DRIVER -DSTM32F103xE-o microcalorimeter/maintask.o -MD)
 I (..\Core\Inc\MainTask.h)(0x66D05C78)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -592,7 +592,7 @@ I (..\Core\Inc\dma.h)(0x66C3EE68)
 I (..\Core\Inc\iwdg.h)(0x66C3F362)
 I (..\Core\Inc\usart.h)(0x66D02CB1)
 I (..\Core\Inc\gpio.h)(0x66A883F6)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -647,7 +647,7 @@ I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_flash_ex.h)(0x6475DEFA)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_iwdg.h)(0x6475DEFA)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h)(0x6475DEFA)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6475DEFA)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)
@@ -802,7 +802,7 @@ I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_iwdg.h)(0x6475DEFA)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h)(0x6475DEFA)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6475DEFA)
 I (..\Core\Inc\stm32f1xx_it.h)(0x66D02CB1)
-I (..\Core\Inc\sys.h)(0x66DE5DC1)
+I (..\Core\Inc\sys.h)(0x670A2911)
 I (..\rt-thread\include\rtthread.h)(0x60ED86CD)
 I (..\rt-thread\bsp\rtconfig.h)(0x66CEDF27)
 I (..\rt-thread\include\rtdebug.h)(0x60ED86CD)

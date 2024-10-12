@@ -617,6 +617,7 @@ void Get_Voltage(void)
 			RegisterValue = AD717X_ReadRegister(&device8,AD717X_DATA_REG);
 			V8 = RegValue_To_Voltage(RegisterValue);
 			data.Voltage = (((V1+V2+V3+V4+V5+V6+V7+V8)/8.0)/19.99) + 0.0000083 - 0.0000207;
+			data.Voltage = (data.V2+data.V3+data.V4+data.V5)-(data.V6+data.V7+data.V8+data.V9);
 //			rt_kprintf("V : %d mV\r\n", (int)(data.Voltage*1000.0));
 			
 			DisableIOSPI(8);

@@ -1,8 +1,8 @@
 #ifndef  __SYS_H__
 #define  __SYS_H__
 
-#define	VERSION_R4V1
-//#define VERSION_V9
+//#define	VERSION_R4V1
+#define VERSION_V9
 
 #include "rtthread.h"
 #include "gpio.h"

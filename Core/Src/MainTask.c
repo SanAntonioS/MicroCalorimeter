@@ -50,6 +50,9 @@ void main_task_thread_entry(void *parameter)
 		}
 		else{
 			PWM_Duty[0] = 0;	
+			memset(uart1.tx_data,0,256);
+			sprintf(uart1.tx_data, "OUTP OFF,(@1)\r\n");
+			HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
 		}
 		
 //		//重设目标温度时，清除积分
@@ -271,7 +274,22 @@ void UpdatePWM(float *PWM_Duty)
 
 	data.Power = *(PWM_Duty+0);
 	
-	sprintf(uart1.tx_data, "CURR%.2f,(@1)\r\n", I_OUT);
+	memset(uart1.tx_data,0,256);
+	sprintf(uart1.tx_data, "VOLT 10,(@1)\r\n");
 	HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
+	
+	if(I_OUT > 0){
+		memset(uart1.tx_data,0,256);
+		sprintf(uart1.tx_data, "CURR %.3f,(@1)\r\n", I_OUT);
+		HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
+		memset(uart1.tx_data,0,256);
+		sprintf(uart1.tx_data, "OUTP ON,(@1)\r\n");
+		HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
+	}
+	else{
+		memset(uart1.tx_data,0,256);
+		sprintf(uart1.tx_data, "OUTP OFF,(@1)\r\n");
+		HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
+	}
 	
 }
