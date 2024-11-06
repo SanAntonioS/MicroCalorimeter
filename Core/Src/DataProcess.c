@@ -49,6 +49,8 @@ double update_sliding_average(SlidingAverage *avg, double new_value) {
 
 void data_process_thread_entry(void *parameter)
 {
+	static int data_process_count = 0;
+	
 	// 使用静态数组初始化滑动平均结构
 	SlidingAverage avg1;
 	SlidingAverage avg2;
@@ -68,7 +70,14 @@ void data_process_thread_entry(void *parameter)
 		
 		if(result == RT_EOK){
 			
-			data.averageVoltage = update_sliding_average(&avg1, data.Voltage);
+			data_process_count++;
+			if (data_process_count > 21){
+				data.averageVoltage = update_sliding_average(&avg1, data.Voltage);
+				data_process_count = 22;
+			}
+			else{
+				data.averageVoltage = data.Voltage;
+			}
 			
 			#ifdef VERSION_R4V1
 			if(data.R1 > 3000)

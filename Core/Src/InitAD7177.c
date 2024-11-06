@@ -113,7 +113,7 @@ void InitAD7177(struct ad717x_device *device,uint32_t addr)
 		#ifdef VERSION_R4V1
 			+ AD717X_FILT_CONF_REG_ODR(0x12); // ADC 输出数据速率 0x14-> 5sps ;0x13-> 10sps ;0x12-> 16.66sps
 		#else
-			+ AD717X_FILT_CONF_REG_ODR(0x09); // ADC 输出数据速率 0x14-> 5sps ;0x13-> 10sps ;0x12-> 16.66sps
+			+ AD717X_FILT_CONF_REG_ODR(0x11); // ADC 输出数据速率 0x14-> 5sps ;0x13-> 10sps ;0x12-> 16.66sps
 		#endif
 	AD717X_WriteRegister( device, AD717X_FILTCON0_REG);  
   DisableIOSPI(device->slave_select_id);

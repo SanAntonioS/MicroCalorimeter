@@ -12,8 +12,8 @@ typedef struct uart1
 
 void main_task_thread_entry(void *parameter);
 void Baseline_Controller(void);
-void PID_Controller(float T_History, float T_Target, float *PWM_Duty);
-void AT_Controller(float T_History, float T_Target, float *PWM_Duty);
+void PID_Controller(double T_History, double T_Target, float *PWM_Duty);
+void AT_Controller(double T_History, double T_Target, float *PWM_Duty);
 void UpdatePWM(float *PWM_Duty);
 
 #endif

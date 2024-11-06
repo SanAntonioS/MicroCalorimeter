@@ -11,6 +11,7 @@ float error = 0;						//误差
 float errorSum = 0;					//积分项累积
 float lastError = 0;				//上一次的误差
 float dError = 0;						//微分项
+float lastdError = 0;
 float output = 0;						//PID输出
 float prevOutput = 0;				//上一次的输出
 float alpha = 0.1;					//微分滤波系数
@@ -25,7 +26,8 @@ float Tmax = 0;        	//记录最大温度
 float Tmin = 0;        	//记录最小温度
 float Kc = 0;  					//临界增益
 
-float HeatRod_Power = 100; 	//加热棒功率(U^2/R)
+//加热棒4.1ohm
+float HeatRod_Power = 1; 	//加热棒功率(U^2/R)
 
 float PWM_Duty[4]={0};			//功率输出占空比
 
@@ -43,50 +45,101 @@ void main_task_thread_entry(void *parameter)
 			PID_Controller(data.averageVoltage, data.Voltage_Target, PWM_Duty);
 		}
 		else if(Flag.Start_AT){
-			AT_Controller(data.averageVoltage, data.T_Target, PWM_Duty);
+			AT_Controller(data.averageVoltage, data.Voltage_Target, PWM_Duty);
 		}
 		else if(Flag.Start_Baseline){
 			Baseline_Controller();
 		}
 		else{
+			errorSum = 0;
 			PWM_Duty[0] = 0;	
+			data.Power = 0;
+			data.Baseline_Time = 0;
 			memset(uart1.tx_data,0,256);
 			sprintf(uart1.tx_data, "OUTP OFF,(@1)\r\n");
 			HAL_UART_Transmit(&huart1, (const uint8_t *)uart1.tx_data, sizeof(uart1.tx_data), 0xffff);
 		}
 		
-//		//重设目标温度时，清除积分
-//		if(Flag.T_Target_Update == 1){
-//			errorSum = 0;
-//			Flag.T_Target_Update = 0;
-//		}
+		//重设目标温度时，清除积分
+		if(Flag.T_Target_Update == 1){
+			errorSum = 0;
+			Flag.T_Target_Update = 0;
+		}
 		rt_thread_delay(978);
 	}
 }
 
+#define SAMPLE_COUNT 300 // 5分钟，每秒1次采样
+static double voltage_samples[SAMPLE_COUNT] = {0}; // 用于存储每次采样的电压值
+static int sample_index = 0; // 当前采样索引
+double peak_to_peak = 0;
+
 void Baseline_Controller(void)
 {
-	static float last_voltage = 0.0;
-	static int time = 0;
+	static double last_voltage = 0.0;
+	static int count = 0;
+	
+	count++;
 
-	// 检查电压是否稳定在一定范围内
-	if (fabs(data.averageVoltage - last_voltage) < 10e-6) {
-			// 计时
-			time++;
+	// 保存当前电压到数组
+	voltage_samples[sample_index] = data.averageVoltage;
+	sample_index = (sample_index + 1) % SAMPLE_COUNT; // 循环索引
+	
+	if(count > 300){
+		
+		double max_value = voltage_samples[0];
+    double min_value = voltage_samples[0];
 
-			// 如果时间超过设定的稳定时间，执行操作
-			if (time >= 300) { // 5分钟 = 300秒
-					// 保存当前电压作为基线
-					data.Baseline_Voltage = data.averageVoltage;
-					Flag.Start_Baseline = 0; // 任务完成后，重置标志位
-			}
-	} else {
-			// 电压不稳定，重置计时器
-			time = 0;
+    for (int i = 1; i < SAMPLE_COUNT; i++) {
+        if (voltage_samples[i] > max_value) {
+            max_value = voltage_samples[i];
+        }
+        if (voltage_samples[i] < min_value) {
+            min_value = voltage_samples[i];
+        }
+    }
+		peak_to_peak = max_value - min_value;
+		
+		// 峰峰值单位V
+		if (peak_to_peak < 0.000001) {
+				// 计时
+				data.Baseline_Time++;
+
+				// 如果时间超过设定的稳定时间，执行操作
+				if (data.Baseline_Time >= 300) { // 5分钟 = 300秒
+						// 保存当前电压作为基线
+					
+						// 计算 voltage_samples 数组的平均值
+						double sum = 0.0;
+						for (int i = 0; i < SAMPLE_COUNT; i++) {
+								sum += voltage_samples[i];
+						}
+						double average_voltage = sum / SAMPLE_COUNT;  // 计算平均值
+						
+						data.Baseline_Voltage = average_voltage;
+						data.Voltage_Target = data.Baseline_Voltage;
+					
+						Flag.Save_Baseline_Voltage_to_EEPROM = 1;
+						Flag.EV2_State = 0;
+						Flag.Start_Baseline = 0; // 任务完成后，重置标志位
+//						//开始PID控制
+//						Flag.EV4_State = 1;
+//						Flag.Start_Control= 1;
+						data.Baseline_Time = 0;
+						count = 0;
+					
+						rt_sem_t eeprom_sem = get_eeprom_sem();
+						rt_sem_release(eeprom_sem);
+				}
+		} else {
+				// 电压不稳定，重置计时器
+				data.Baseline_Time = 0;
+		}
+	
+		count = 300;
 	}
 
-	// 更新上一次的电压值
-	last_voltage = data.averageVoltage;
+	
 }
 
 /*******************************************************************************
@@ -104,7 +157,7 @@ void Baseline_Controller(void)
 * 作    者：余明明
 * 日    期: 2023-8-21
 *******************************************************************************/
-void PID_Controller(float T_History, float T_Target, float *PWM_Duty)
+void PID_Controller(double T_History, double T_Target, float *PWM_Duty)
 {
 	Kp = data.Kp;
 	Ki = data.Ki;
@@ -128,6 +181,10 @@ void PID_Controller(float T_History, float T_Target, float *PWM_Duty)
 	
 	// 计算微分项
 	dError = error - lastError;
+	if(dError == 0)
+		dError = lastdError;
+	
+	lastdError = dError;
 
 	// 计算PID输出
 	output = Kp * error + Ki * errorSum + Kd * dError;
@@ -142,7 +199,7 @@ void PID_Controller(float T_History, float T_Target, float *PWM_Duty)
 	lastError = error;
   
 	//输出给加热器
-  *(PWM_Duty+0) = output / HeatRod_Power;
+  *(PWM_Duty+0) = output / 500;
 	
 	UpdatePWM(PWM_Duty);
 }
@@ -162,7 +219,7 @@ void PID_Controller(float T_History, float T_Target, float *PWM_Duty)
 * 作    者：余明明
 * 日    期: 2023-8-21
 *******************************************************************************/
-void AT_Controller(float T_History, float T_Target, float *PWM_Duty)
+void AT_Controller(double T_History, double T_Target, float *PWM_Duty)
 {
 	switch(Device_Status)
 	{
@@ -270,7 +327,8 @@ void UpdatePWM(float *PWM_Duty)
 	if(*(PWM_Duty+0) < 0)
 		*(PWM_Duty+0) = 0;
 
-	float I_OUT = *(PWM_Duty+0) * 5.0;
+	//最大10.5W,修改成21.56W，从1.6改成2.2
+	float I_OUT = *(PWM_Duty+0) * 2.2;
 
 	data.Power = *(PWM_Duty+0);
 	

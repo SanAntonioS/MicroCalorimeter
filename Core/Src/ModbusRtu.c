@@ -53,7 +53,7 @@ void ModbusRtuTask(void)
 		Register.OUT = data.averageR4;
 		Register.NTC_A = data.averageVoltage;
 		Register.NTC_B = data.Baseline_Voltage;
-		Register.NTC_C = (data.NTC_C);
+		Register.NTC_C = (data.Baseline_Time);
 		Register.NTC_D = (data.NTC_D);
 		Register.NTC_E = (data.V2);
 		Register.NTC_F = (data.V3);
@@ -164,6 +164,10 @@ void ModbusRtuTask(void)
 					if (uart3.rx_data[5] == 0x01){
 						Flag.EV2_State = 1;
 						Flag.Start_Baseline = 1;
+						Flag.EV3_State = 0;
+						Flag.Start_AT = 0;
+						Flag.EV4_State = 0;
+						Flag.Start_Control= 0;
 					}
 					else{
 						Flag.EV2_State = 0;
@@ -173,8 +177,12 @@ void ModbusRtuTask(void)
 
 				case 0x0128: {
 					if (uart3.rx_data[5] == 0x01){
+						Flag.EV2_State = 0;
+						Flag.Start_Baseline = 0;
 						Flag.EV3_State = 1;
 						Flag.Start_AT = 1;
+						Flag.EV4_State = 0;
+						Flag.Start_Control= 0;
 					}
 					else{
 						Flag.EV3_State = 0;
@@ -184,6 +192,10 @@ void ModbusRtuTask(void)
 
 				case 0x0129: {
 					if (uart3.rx_data[5] == 0x01){
+						Flag.EV2_State = 0;
+						Flag.Start_Baseline = 0;
+						Flag.EV3_State = 0;
+						Flag.Start_AT = 0;
 						Flag.EV4_State = 1;
 						Flag.Start_Control= 1;
 					}
@@ -204,6 +216,7 @@ void ModbusRtuTask(void)
 					if (uart3.rx_data[5] == 0x01){
 						Flag.Start_AT= 1;
 						Flag.Start_Control= 0;
+						Flag.EV4_State = 0;
 					}
 					else{
 						Flag.Start_AT= 0;
@@ -229,6 +242,7 @@ void ModbusRtuTask(void)
 					case 0x012B:	Flag.Save_Kd_to_EEPROM = 1;break;
 					case 0x014A:	Flag.Save_MaxT_to_EEPROM = 1;break;
 					case 0x014C:	Flag.Save_MinT_to_EEPROM = 1;break;
+					case 0x0124:	Flag.Save_Baseline_Temperature_to_EEPROM = 1;break;
 					default:break;
 				}
 
@@ -241,10 +255,18 @@ void ModbusRtuTask(void)
 				memcpy(Register_Array + ((Register_Addr - 0x0100) * 2), uart3.rx_data + 7, Byte_Num);
 				memcpy(&Register, Register_Array, sizeof(Register));
 
+				switch(Register_Addr)
+				{
+					case 0x0106:{
+						data.Voltage_Target = LtoB_Float(Register.Sv);	
+						Flag.T_Target_Update = 1;
+					}break;
+					default:break;
+				}
 				//更新寄存器值至数据中
 				data.Kp = LtoB_Float(Register.Kp);
 				data.Ki = LtoB_Float(Register.Ki);
-				data.Voltage_Target = LtoB_Float(Register.Sv);
+//				data.Voltage_Target = LtoB_Float(Register.Sv);
 				data.NTC_A = LtoB_Double(Register.NTC_A);
 				data.NTC_B = LtoB_Double(Register.NTC_B);
 				data.NTC_C = LtoB_Double(Register.NTC_C);

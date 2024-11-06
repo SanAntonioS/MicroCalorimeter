@@ -26,11 +26,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_KP+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_KP+i);
-				}
-				data.Kp = UnionDataERW.Data_Float;
 				Flag.Save_Kp_to_EEPROM = 0;
 			}
 			//---------------------写入Ki--------------------------
@@ -40,11 +35,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_KI+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_KI+i);
-				}
-				data.Ki = UnionDataERW.Data_Float;
 				Flag.Save_Ki_to_EEPROM = 0;
 			}
 			//---------------------写入Kd--------------------------
@@ -54,11 +44,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_KD+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_KD+i);
-				}
-				data.Kd = UnionDataERW.Data_Float;
 				Flag.Save_Kd_to_EEPROM = 0;
 			}
 			//---------------------写入Max_Temperature--------------------------
@@ -68,11 +53,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_MAXT+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_MAXT+i);
-				}
-				data.Max_Temperature = UnionDataERW.Data_Float;
 				Flag.Save_MaxT_to_EEPROM = 0;
 			}
 			//---------------------写入Min_Temperature--------------------------
@@ -82,11 +62,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_MINT+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_MINT+i);
-				}
-				data.Min_Temperature = UnionDataERW.Data_Float;
 				Flag.Save_MinT_to_EEPROM = 0;
 			}
 			
@@ -97,11 +72,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_BaseT+i),UnionDataERW.Data_Unchar[3-i]);
 				}
-				for(int i=0;i<4;i++)
-				{
-					UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseT+i);
-				}
-				data.Baseline_Temperature = UnionDataERW.Data_Float;
 				Flag.Save_Baseline_Temperature_to_EEPROM = 0;
 			}
 			//---------------------写入Baseline_Voltage--------------------------
@@ -111,11 +81,6 @@ void eeprom_thread_entry(void *parameter)
 				{
 					AT24Cxx_WriteOneByte((ADD_BaseV+i),UnionDataERW_Double.Data_Unchar[7-i]);
 				}
-				for(int i=0;i<8;i++)
-				{
-					UnionDataERW_Double.Data_Unchar[7-i]=AT24Cxx_ReadOneByte(ADD_BaseV+i);
-				}
-				data.Baseline_Voltage = UnionDataERW_Double.Data_Double;
 				Flag.Save_Baseline_Voltage_to_EEPROM = 0;
 			}
 		}
@@ -157,11 +122,11 @@ void EEPROM_Data_Init(void)
 		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseT+i);
 	}
 	data.Baseline_Temperature=UnionDataERW.Data_Float;
-	for(int i=0;i<4;i++)
+	for(int i=0;i<8;i++)
 	{
-		UnionDataERW.Data_Unchar[3-i]=AT24Cxx_ReadOneByte(ADD_BaseV+i);
+		UnionDataERW_Double.Data_Unchar[7-i]=AT24Cxx_ReadOneByte(ADD_BaseV+i);
 	}
-	data.Baseline_Voltage=UnionDataERW.Data_Float;
+	data.Baseline_Voltage = UnionDataERW_Double.Data_Double;
 }
 
 /*******************************************************************************

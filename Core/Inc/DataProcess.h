@@ -35,6 +35,7 @@ typedef struct Data
 	
 	float Baseline_Temperature;
 	double Baseline_Voltage;
+	double Baseline_Time;
 	
 	double NTC_A;
 	double NTC_B;
@@ -73,6 +74,8 @@ typedef struct Flag
 	
 	bool Save_Baseline_Temperature_to_EEPROM;
 	bool Save_Baseline_Voltage_to_EEPROM;
+	
+	bool T_Target_Update;
 }Flag_t;
 
 void data_process_thread_entry(void *parameter);
